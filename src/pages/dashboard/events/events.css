@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700&display=swap');
+@import "tailwindcss";
+
+
+
+@theme {
+  --font-script: Great Vibes, cursive;
+  --color-regal-blue: #F1F1F1;
+  --color-regal-black: #333333;
+  --color-regal-purple: #8354A3;     
+
+  }

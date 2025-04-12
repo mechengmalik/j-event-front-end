@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+
+@theme {
+    --color-regal-blue: #F1F1F1;
+    --color-regal-black: #333333;
+    --color-regal-purple: #8354A3;
+
+     
+     
+  }
+  
+  .border-line{
+border: solid #c8d0da3f 0.1rem;
+
+  }
