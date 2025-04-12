@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import googleIcon from "../../assets/icons/google.svg";
-import oulookIcon from "../../assets/icons/outlook.svg";
+import googleIcon from "../../../public/assets/icons/google.svg";
+import oulookIcon from "../../../public/assets/icons/outlook.svg";
 import "./signin.css";
 
 function SignInFooter({ signin }) {
