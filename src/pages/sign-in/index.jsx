@@ -3,8 +3,16 @@ import SignInFooter from "../../components/signin/Signin-footer";
 import SignInImage from "../../components/signin/signin-image";
 import "./sign-in.css";
 import SignInHeader from "../../components/signin/signin-header";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+   
+    navigate("/dashboard");
+  };
   // const [formData, setFormData] = useState({
   //   name: '',
   //   email: '',
@@ -26,10 +34,10 @@ function SignIn() {
 
   return (
     <div className="flex w-full h-screen p-1">
-     <SignInImage />
+      <SignInImage />
 
-     <div className="sign-in-wrapper w-1/2 flex flex-col gap-3 bg-white">
-     <SignInHeader />
+      <div className="sign-in-wrapper w-1/2 flex flex-col gap-3 bg-white">
+        <SignInHeader />
 
         <div className="sign-in-form  ml-40 ">
           <h2 className="text-3xl font-bold ">Welcome</h2>
@@ -53,6 +61,7 @@ function SignIn() {
                 Keep me signed in
               </label>
               <button
+                onClick={handleLogin}
                 type="submit"
                 className="w-full bg-regal-purple text-white py-2 rounded hover:bg-purple-500 "
               >
@@ -61,10 +70,7 @@ function SignIn() {
             </form>
           </div>
           <div className="sign-in-footer">
-            <SignInFooter
-            signin={true}
-            
-            />
+            <SignInFooter signin={true} />
           </div>
         </div>
       </div>

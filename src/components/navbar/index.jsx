@@ -62,7 +62,7 @@ function Navbar() {
       <div className="relative pt-1">
         <button
           onClick={toggleProfileMenu}
-          className="w-7 h-7 rounded-full bg-gray-200 hover:bg-gray-300"
+          className="circle-border-btn w-7 h-7 bg-gray-200 hover:bg-gray-300"
         >
           <img src="" />
         </button>

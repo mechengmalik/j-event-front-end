@@ -5,8 +5,14 @@
 }
 @theme {
     --color-regal-black: #2A3547; 
+    --color-regal-purple: #8354A3;
+
   }
 
   .side-menu-link{
     width: 78%;
+  }
+
+  .filter-white {
+    filter: brightness(0) invert(1);
   }
