@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import SignInFooter from "../../components/signin/Signin-footer";
 import SignInImage from "../../components/signin/signin-image";
 import SignInHeader from "../../components/signin/signin-header";
+import SignInFooter from "../../components/signin/signin-footer";
 import "./sign-up.css";
 
 function SignUp() {
