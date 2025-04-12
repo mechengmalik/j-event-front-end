@@ -17,6 +17,22 @@ body {
   will-change: filter;
   transition: filter 300ms;
 }
+button {
+  border-radius: 8px;
+  border: 1px solid #8354A3 transparent;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #8354A3;
+}
+button.non-rounded {
+  border-radius: 0 !important;
+}
+
+button.circle-border-btn {
+  border-radius: 14px !important;
+}
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
