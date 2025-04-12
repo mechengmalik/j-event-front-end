@@ -1,5 +1,5 @@
 import React from "react";
-import SignInFooter from "../../components/signin/Signin-footer";
+import SignInFooter from "../../components/signin/signin-footer";
 import SignInImage from "../../components/signin/signin-image";
 import "./sign-in.css";
 import SignInHeader from "../../components/signin/signin-header";
