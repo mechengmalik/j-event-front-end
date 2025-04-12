@@ -1,9 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
 import React from "react";
-import Logo from "../../assets/icons/Logo.svg";
-import OverviewdIcon from "../../assets/icons/overview.svg";
-import settingsIcon from "../../assets/icons/settings.svg";
-import eventsIcon from "../../assets/icons/events-dashboard.svg";
+import Logo from "../../../public/assets/icons/Logo.svg";
+import OverviewdIcon from "../../../public/assets/icons/overview.svg";
+import settingsIcon from "../../../public/assets/icons/settings.svg";
+import eventsIcon from "../../../public/assets/icons/events-dashboard.svg";
 import "./sidebar.css";
 
 const sideMenuContent = [

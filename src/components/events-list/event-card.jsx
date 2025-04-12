@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./events-list.css";
-import eventDefaultImage from "../../assets/icons/default-logo.svg";
-import calender from "../../assets/icons/calender.svg";
-import table from "../../assets/icons/table.svg";
-import threeDotsIcon from "../../assets/icons/threedots.svg";
-import exclamationMarkView from "../../assets/icons/exclamation-mark-overview.svg";
-import editIcon from "../../assets/icons/edit-icon.svg";
-import copyIcon from "../../assets/icons/copy-icon.svg";
-import trashIcon from "../../assets/icons/trash.svg";
+import eventDefaultImage from "../../../public/assets/icons/default-logo.svg";
+import calender from "../../../public/assets/icons/calender.svg";
+import table from "../../../public/assets/icons/table.svg";
+import threeDotsIcon from "../../../public/assets/icons/threedots.svg";
+import exclamationMarkView from "../../../public/assets/icons/exclamation-mark-overview.svg";
+import editIcon from "../../../public/assets/icons/edit-icon.svg";
+import copyIcon from "../../../public/assets/icons/copy-icon.svg";
+import trashIcon from "../../../public/assets/icons/trash.svg";
 
 function EventCard({ event }) {
   const [menuOpen, setMenuOpen] = useState(false);

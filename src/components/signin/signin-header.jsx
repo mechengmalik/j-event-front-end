@@ -1,6 +1,6 @@
 import React from 'react'
-import langIcon from "../../assets/icons/language.svg";
-import Logo from "../../assets/icons/Logo.svg";
+import langIcon from "../../../public/assets/icons/language.svg";
+import Logo from "../../../public/assets/icons/Logo.svg";
 
 const SignInHeader = () => {
   return (
