@@ -9,10 +9,6 @@
 
   }
 
-  .side-menu-link{
-    width: 78%;
-  }
-
   .filter-white {
     filter: brightness(0) invert(1);
   }

@@ -22,10 +22,11 @@ background:
   radial-gradient(ellipse 50% 40% at 50% 50%,#3F0B93, transparent),
   radial-gradient(ellipse 45% 40% at 50% 40%,#9909DD, transparent),
   linear-gradient(0deg, #000,#200135,#620d9b,#9909DD, #e1b8fc)
+  
 
 }
-
-
-.sign-in-form{
-  width: 53%;
+@media (max-width: 600px) {
+  .custom-gradient {
+    display: none !important;
+  }
 }

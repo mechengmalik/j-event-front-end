@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./events-list.css";
-import eventDefaultImage from "../../../public/assets/icons/default-logo.svg";
-import calender from "../../../public/assets/icons/calender.svg";
-import table from "../../../public/assets/icons/table.svg";
-import threeDotsIcon from "../../../public/assets/icons/threedots.svg";
-import exclamationMarkView from "../../../public/assets/icons/exclamation-mark-overview.svg";
-import editIcon from "../../../public/assets/icons/edit-icon.svg";
-import copyIcon from "../../../public/assets/icons/copy-icon.svg";
-import trashIcon from "../../../public/assets/icons/trash.svg";
+import eventDefaultImage from "../../assets/icons/default-logo.svg";
+import calender from "../../assets/icons/calender.svg";
+import table from "../../assets/icons/table.svg";
+import threeDotsIcon from "../../assets/icons/threedots.svg";
+import exclamationMarkView from "../../assets/icons/exclamation-mark-overview.svg";
+import editIcon from "../../assets/icons/edit-icon.svg";
+import copyIcon from "../../assets/icons/copy-icon.svg";
+import trashIcon from "../../assets/icons/trash.svg";
 
 function EventCard({ event }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -28,9 +28,9 @@ function EventCard({ event }) {
   }, []);
 
   return (
-    <div className="card-container relative flex flex-col shadow-sm border border-slate-200 rounded-lg my-4 w-full max-w-sm">
+    <div className="card-container relative flex flex-col shadow-sm border border-slate-200  my-4 w-full max-w-sm">
       {event.status === "live" && (
-        <div className="absolute top-3 left-2 bg-regal-purple text-white text-xs font-semibold px-2 py-1 rounded z-20">
+        <div className="absolute top-3 left-2 bg-regal-purple text-white text-xs font-semibold px-2 py-1 z-20">
           LIVE
         </div>
       )}
@@ -45,9 +45,9 @@ function EventCard({ event }) {
         </button>
 
         {menuOpen && (
-          <div className=" event-menu absolute right-0 mt-2 w-40 bg-white border rounded shadow-md z-50 text-sm">
+          <div className=" event-menu absolute right-0 mt-2 w-40 bg-white border  shadow-md z-50 text-sm">
             <div className="overview-option">
-              <button className="overview-button w-full flex gap-2 px-4 py-2 hover:bg-regal-purple">
+              <button className="overview-button w-full flex gap-2 px-4 py-2 hover:bg-black/10">
                 <img
                   className="overview-icon"
                   src={exclamationMarkView}
@@ -57,19 +57,19 @@ function EventCard({ event }) {
               </button>
             </div>
             <div className="manage-option">
-              <button className="manage-button w-full flex gap-2 px-4 py-2 hover:bg-regal-purple">
+              <button className="manage-button w-full flex gap-2 px-4 py-2 hover:bg-black/10">
                 <img className="manage-icon" src={editIcon} alt="manage" />
                 Manage
               </button>
             </div>
             <div className="clone-option">
-              <button className="clone-button w-full flex gap-2 px-4 py-2 hover:bg-regal-purple">
+              <button className="clone-button w-full text-xs flex gap-2 px-4 py-2 hover:bg-black/10">
                 <img className="copy-icon-icon" src={copyIcon} alt="copy" />
                 Clone
               </button>
             </div>
             <div className="delete-option">
-              <button className="block w-full flex gap-3 text-left px-4 py-2 text-red-600 hover:bg-red-100">
+              <button className="block w-full flex gap-3 text-left px-4 py-2 text-red-600 hover:bg-black/10">
                 <img className="trash-icon" src={trashIcon} alt="trash-icon" />
                 Move to trash
               </button>
@@ -78,7 +78,7 @@ function EventCard({ event }) {
         )}
       </div>
 
-      <div className="event-img-container bg-regal-blue overflow-hidden rounded-t-md h-56 flex justify-center items-center relative">
+      <div className="event-img-container bg-regal-blue overflow-hidden -t-md h-56 flex justify-center items-center relative">
         <img
           className="event-image object-cover bg-regal-blue"
           src={eventDefaultImage}
@@ -86,19 +86,19 @@ function EventCard({ event }) {
         />
 
         {event.status === "live" && (
-          <div className="absolute bottom-0 left-0 right-0 bg-regal-purple text-white text-center text-xs  py-2">
+          <div className="absolute bottom-0 left-0 right-0 bg-regal-purple text-white text-center text-xs  py-1">
             Remaining 325 Seats
           </div>
         )}
         {event.status === "live" && event.availableSeat == 0 && (
-          <div className="absolute bottom-0 left-0 right-0 bg-regal-red text-white text-center text-xs py-2">
+          <div className="absolute bottom-0 left-0 right-0 bg-regal-red text-white text-center text-xs py-1">
             All Seats Are Sold Out
           </div>
         )}
       </div>
 
       <div className="card-footer flex flex-col gap-3 p-3 text-start">
-        <h4 className="event-name mb-1 text-lg font-semibold text-slate-800">
+        <h4 className="event-name mb-1 text-base font-semibold text-slate-800">
           {event.name}
         </h4>
 

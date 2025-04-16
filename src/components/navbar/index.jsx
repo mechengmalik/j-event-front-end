@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import language from "../../../public/assets/icons/language.svg";
-import notification from "../../../public/assets/icons/notification.svg";
-// import eventsIcon from "../../../public/assets/icons/events-dashboard.svg";
+import language from "../../assets/icons/language.svg";
+import notification from "../../assets/icons/notification.svg";
+// import eventsIcon from "../../assets/icons/events-dashboard.svg";
 function Navbar() {
 
   const [showLanguages, setShowLanguages] = useState(false);

@@ -5,20 +5,23 @@
   margin: 0 0;
   padding: 0rem ;
   text-align: center;
+  height: 100vh; /* Full screen height */
+  min-height: 100vh;
 }
 body {
   font-family: 'Alexandria', sans-serif;
+  height: 100vh; /* Full screen height */
+  min-height: 100vh;
+
 }
 
 .logo {
-  height: 4em;
-  padding: 0.3em;
-  margin-top: 0.4rem;
+  height: 4.68em;
+  /* width: 7.5rem; */
   will-change: filter;
   transition: filter 300ms;
 }
 button {
-  border-radius: 8px;
   border: 1px solid #8354A3 transparent;
   cursor: pointer;
   transition: border-color 0.25s;
@@ -62,3 +65,5 @@ button.circle-border-btn {
 .read-the-docs {
   color: #888;
 }
+
+

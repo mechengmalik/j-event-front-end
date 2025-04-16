@@ -33,49 +33,61 @@ function SignUp() {
   // };
 
   return (
-    <div className="flex w-full h-screen p-1">
-      <div className="sign-in-wrapper w-1/2 flex flex-col gap-3  bg-white">
+    <div className=" conainer flex w-full h-screen">
+      <div className="sign-up-container w-1/2 flex flex-col justify-between items-center px-10 py-1">
         <SignInHeader />
 
-        <div className="sign-in-form  ml-40 ">
-          <h2 className="text-3xl font-bold ">Register</h2>
-          <p className="text-xs text-gray-500 mt-3 mb-3 text-center">
-            Create your account to explore, attend, or organize events{" "}
-          </p>
-          <div className="flex flex-row justify-center items-center">
-            <form className="w-full max-w-sm">
-              <input
-                type="text"
-                placeholder="Full Name"
-                className="w-full p-2 border border-gray-500 rounded mb-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                className="w-full p-2 border border-gray-500 rounded mb-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                className="w-full p-2 border border-gray-500 rounded mb-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
-              />
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                className="w-full p-2 border border-gray-500 rounded mb-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
-              />
-              <button
-                onClick={handleSignUp}
-                type="submit"
-                className="w-full bg-regal-purple text-white py-2 mt-3 rounded hover:bg-purple-500 "
-              >
-                Create Account
-              </button>
-            </form>
+        <div className="sign-up-wrapper w-full px-30 ">
+          <div className="sign-up-form w-full px-2">
+            <div className="sign-up-form-header flex flex-col pb-2 ">
+              <h2 className="register font-bold text-3xl p-3 ">Register</h2>
+              <p className="signup-text text-sm text-black/70 text-center">
+                Create your account to explore, attend, or organize events{" "}
+              </p>
+            </div>
+            <div className="flex flex-row">
+              <form className="w-full">
+                <input
+                  type="text"
+                  placeholder="Full Name"
+                  className=" input text-sm w-full pl-3 py-2 mb-1 text-[#49454F] border border-[#79747E] focus:outline-none focus:ring-[#79747E]"
+                />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="input text-sm w-full pl-3 py-2 mb-1 text-[#49454F] border border-[#79747E] focus:outline-none focus:ring-[#79747E]"
+                />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  className="input text-sm w-full pl-3 py-2 mb-1 text-[#49454F] border border-[#79747E] focus:outline-none focus:ring-[#79747E]"
+                />
+                <input
+                  type="password"
+                  placeholder="Confirm Password"
+                  className="input text-sm w-full pl-3 py-2 mb-2 text-[#49454F] border border-[#79747E] focus:outline-none focus:ring-[#79747E]"
+                />
+                <button
+                  onClick={handleSignUp}
+                  type="submit"
+                  className="sign-up-btn w-full bg-regal-purple text-sm text-white py-3 hover:bg-purple-500 "
+                >
+                  Create Account
+                </button>
+              </form>
+            </div>
           </div>
-          <div className="sign-in-footer">
-            <SignInFooter signin={false} />
-          </div>
+          <SignInFooter signin={false} />
+        </div>
+
+        <div className=" flex justify-center gap-2 text-xs text-black/70 py-4  ">
+          <a href="#" className="hover:underline">
+            Terms of use
+          </a>{" "}
+          ·{" "}
+          <a href="#" className="hover:underline">
+            Privacy policy
+          </a>
         </div>
       </div>
       <SignInImage />

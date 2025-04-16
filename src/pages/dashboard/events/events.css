@@ -10,3 +10,64 @@
   --color-regal-purple: #8354A3;     
 
   }
+ 
+  @media (max-width: 1000px) {
+    .events-wrapper{
+      padding: 1rem 5rem ;
+    }
+    .events-heading{
+      padding: 1rem 0;
+    }
+    .events-list{
+      padding-top: 1rem;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .events-wrapper{
+    gap: 0.8rem;
+    }
+    .events-heading{
+      padding: 1rem 0 ;
+    }
+    .create-events-btn{
+      font-size: 0.8rem;
+      padding: 0.5rem 0.5rem;
+    }
+    .events-title{
+      padding-top: 0.5rem;
+      font-size: 1.8rem;
+    }
+    .events-description{
+      margin: 0;
+      font-size: 0.9rem;
+    }
+    .events-list{
+      padding-top: 1rem;
+    }
+  }
+
+  @media (max-width: 490px) {
+    .events-wrapper{
+      padding: 1rem 0.8rem;
+    gap: 0.8rem;
+    }
+    .events-heading{
+      padding: 1rem 0 ;
+    }
+    .create-events-btn{
+      font-size: 0.8rem;
+      padding: 0.5rem 0.5rem;
+    }
+    .events-title{
+      padding-top: 0.5rem;
+      font-size: 1.8rem;
+    }
+    .events-description{
+      margin: 0;
+      font-size: 0.9rem;
+    }
+    .events-list{
+      padding-top: 1rem;
+    }
+  }
