@@ -9,7 +9,7 @@ import SignUp from './sign-up';
 
 function App() {
   return (
-    <>
+    <div className='body-container'>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sign-in" element={<SignIn />} />
@@ -20,7 +20,7 @@ function App() {
 
 
       </Routes>
-    </>
+    </div>
   );
 }
 

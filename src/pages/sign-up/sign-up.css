@@ -1,0 +1,306 @@
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-script: Great Vibes, cursive;
+  --color-regal-blue: #F1F1F1;
+  --color-regal-black: #333333;
+  --color-regal-purple: #8354A3;     
+
+  }
+  
+  body {
+    font-family: 'Alexandria', sans-serif;
+  }
+  
+  .custom-gradient {
+    /* height: fit-content; */
+  background: 
+    /* radial-gradient(circle at top right,#f9f9fa,#ab49ec ), */
+    /* radial-gradient(circle at top left,#fbfafc,#ab49ec ), */
+    radial-gradient(ellipse 140% 100% at bottom,#000, transparent),
+    radial-gradient(ellipse 60% 40% at 50% 70%,#30024e, transparent),
+    radial-gradient(ellipse 55% 40% at 50% 60%,#30024e, transparent),
+    radial-gradient(ellipse 50% 40% at 50% 50%,#3F0B93, transparent),
+    radial-gradient(ellipse 45% 40% at 50% 40%,#9909DD, transparent),
+    linear-gradient(0deg, #000,#200135,#620d9b,#9909DD, #e1b8fc)
+  
+  
+  
+  }
+  
+  
+  @media (min-height: 900px) {
+    .sign-up-container {
+      padding: 2rem 4.75rem;
+      height: 100vh;
+    }
+    .sign-up-wrapper{
+      padding: 0 6.25rem;
+    }
+    .register{
+      font-size: 2rem;
+      font-weight: bold;
+      padding: 1.5rem 1.5rem;
+    }
+    .signup-text{
+      font-size: 1rem;
+      margin-bottom: 2.56rem;
+    }
+  
+    .input{
+      padding: .85rem;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .sign-up-btn{
+      padding: 0.85rem;
+      font-size: 1rem;
+    }
+    
+  }
+
+
+@media (max-width: 1200px) {
+  .sign-up-container {
+    padding: 1.5rem 2.5rem;
+  }
+  .sign-up-wrapper{
+    padding: 0 4rem;
+  }
+  .register{
+    padding: 0.5rem 1rem;
+  }
+
+  .sign-up-checkbox{
+    padding-bottom: 1rem;
+  }
+
+  .divider-line{
+    padding: 0.6rem 0;
+    
+  }
+  .log-or-sign-text{
+    font-size: 0.7rem;
+  }
+
+}
+
+  @media (max-width: 1000px) {
+  .sign-up-container {
+    padding: 1.5rem 2.5rem;
+  }
+  .sign-up-wrapper{
+    padding: 0 3.75rem;
+  }
+  .register{
+    padding: 1rem 1rem;
+  }
+
+  .input{
+    padding: .6rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+  .sign-up-checkbox{
+    padding-bottom: 1.5rem;
+  }
+  .sign-up-btn{
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+  
+  .divider-line{
+    padding: 0.7rem 0;
+    
+  }
+  .log-or-sign-text{
+    font-size: 0.8rem;
+  }
+  .outlook-btn-wrapper{
+    padding: 0.6rem;
+    font-size: 0.9rem;
+
+  }
+  .google-btn-wrapper{
+    padding: 0.6rem;
+    font-size: 0.9rem;
+
+  }
+}
+
+
+@media (max-width: 880px) {
+  .lang-wrapper{
+    padding: 0;
+  }
+  .sign-up-container {
+    padding: 1.5rem 2.5%;
+  }
+  .sign-up-wrapper{
+    padding: 0 15%;
+  }
+  .register{
+    font-size: 1.7rem;
+    font-weight: 700;
+    padding: 1.25rem 1rem;
+  }
+  .signup-text{
+    font-size: 0.8rem;
+  }
+
+  .input{
+    padding: .7rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+  .sign-up-checkbox{
+    padding-bottom: 1.3rem;
+  }
+  .sign-up-btn{
+    padding: 0.75rem;
+    font-size: 0.8rem;
+  }
+  
+  .divider-line{
+    padding: 0.8rem 0;
+    
+  }
+  .log-or-sign-text{
+    font-size: 0.75rem;
+  }
+  .social-login-buttons{
+    gap:1rem;
+  }
+
+  .outlook-btn-wrapper{
+    padding: 0rem;
+    font-size: 0.8rem;
+
+  }
+  .outlook-btn{
+    padding: 0rem;
+    font-size: 0.8rem;
+    /* height: 2.5rem;
+    width: 2.5rem; */
+
+  }
+  .google-btn-wrapper{
+    padding: 0.75rem;
+    font-size: 0.8rem;
+
+  }
+  .google-btn{
+    /* height: 2.5rem; */
+    /* width: 2.5rem; */
+    padding: 0rem;
+    font-size: 0.8rem;
+
+  }
+
+  .reg-signup-text-wrapper{
+    flex-direction: column;
+  }
+
+}
+
+@media (max-width: 600px) {
+  .lang-wrapper{
+    padding: 0;
+  }
+  .lang-select-input{
+    font-size: 0.7rem;
+  }
+
+  .sign-up-container {
+    padding: 1.5rem 2rem;
+  }
+  .sign-up-wrapper{
+    padding: 0 8rem;
+  }
+  .register{
+    font-size: 1.5rem;
+    padding: 1.25rem 1rem;
+  }
+  .login-text{
+    font-size: 0.7rem;
+  }
+
+  .input{
+    padding: .6rem;
+    font-size: 0.7rem;
+    margin-bottom: 0.7rem;
+  }
+  
+  .sign-up-btn{
+    padding: 0.65rem;
+    font-size: 0.7rem;
+  }
+  
+  .divider-line{
+    padding: 0.7rem 0;
+    
+  }
+  .log-or-sign-text{
+    font-size: 0.65rem;
+  }
+  .outlook-btn-wrapper{
+    padding: 0.65rem 0.7rem;
+
+  }
+  .google-btn-wrapper-wrapper{
+    padding: 0.65rem;
+
+  }
+  
+  .signin-signup-link {
+    padding: 0;
+  }
+} 
+
+@media (max-width: 530px) {
+  .sign-up-wrapper{
+    padding: 0 2rem;
+  }
+  
+  .sign-up-btn{
+    padding: 0.65rem;
+    font-size: 0.9rem;
+  }
+ 
+  .outlook-btn-wrapper{
+    padding: 0.2rem 0;
+    font-size: 0.6rem;
+
+
+  }
+  .outlook-btn{
+    padding: 0.2rem 0;
+    font-size: 0.6rem;
+
+  }
+  .google-btn-wrapper{
+    padding: 0.2rem 0;
+    font-size: 0.6rem;
+
+  }
+  
+  .google-btn {
+    padding: 0.2rem 0.0;
+    font-size: 0.6rem;
+
+
+  }
+} 
+
+@media (max-width: 600px) {
+  .sign-in-image {
+    display: none !important;
+    width: 0;
+  }
+
+  .sign-up-container {
+    width: 100% !important;
+  }
+}
+
