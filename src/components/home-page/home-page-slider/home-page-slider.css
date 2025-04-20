@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+.slick-dots li button:before {
+    font-size: 10px;
+    color: white;
+    opacity: 1;
+  }
+  
+  /* Purple active dot */
+  .slick-dots li.slick-active button:before {
+    color: #8354A3; /* Tailwind purple-500 */
+    opacity: 1;
+  }
+
+  .slick-dots li{
+    margin: 0;
+  }
