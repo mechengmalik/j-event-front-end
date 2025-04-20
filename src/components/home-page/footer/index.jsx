@@ -1,4 +1,5 @@
 import React from 'react';
+import footer from "../../../assets/images/footer.png"
 import whiteLogo from "../../../assets/icons/logo-white.svg";
 import instaWhite from "../../../assets/icons/insta-white.svg";
 import facebook from "../../../assets/icons/facebook-white.svg";
@@ -8,8 +9,8 @@ import xIcon from "../../../assets/icons/x-white.svg";
 function Footer() {
   return (
     <div className="footer">
-      <div className="footer-image bg-[url('src/assets/icons/footer.svg')] bg-cover bg-center">
-        <div className="w-full text-white px-6 sm:px-16 lg:px-36 pt-20 flex flex-col lg:flex-row justify-between gap-10 lg:gap-0">
+      <div className="footer-image bg-cover bg-top" style={{ backgroundImage: `url(${footer})` }}>
+        <div className="w-full text-white px-6 sm:px-16 lg:px-36 pt-42 flex flex-col lg:flex-row justify-between gap-10 lg:gap-0">
           {/* Left Section */}
           <div className="flex flex-col gap-2">
             <img className="pb-6 w-32" src={whiteLogo} alt="logo" />
@@ -33,7 +34,7 @@ function Footer() {
           {/* Company Section */}
           <div className="flex flex-col gap-2">
             <p className="text-2xl font-bold pb-6">Company</p>
-            <p>Who are we?</p>
+            <p>Who Are We?</p>
             <p>Work Team</p>
             <p>Image Gallery</p>
           </div>
@@ -48,7 +49,7 @@ function Footer() {
           {/* Optional Duplicate Company Section */}
           <div className="flex flex-col gap-2">
             <p className="text-2xl font-bold pb-6">Company</p>
-            <p>Who are we?</p>
+            <p>Who Are We?</p>
             <p>Work Team</p>
             <p>Image Gallery</p>
           </div>
