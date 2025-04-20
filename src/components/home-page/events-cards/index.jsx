@@ -1,5 +1,5 @@
 import React from "react";
-import decoration from "../../../assets/icons/decoration.svg";
+import decoration from "../../../assets/icons/decoration-logo.svg";
 import homePage from "../../../assets/icons/home-page-banner.svg"; // Replace with real image source
 import dateIcon from "../../../assets/icons/date.svg"; // Replace with real icon
 

@@ -1,5 +1,5 @@
 import React from "react";
-import decoration from "../../../assets/icons/decoration.svg";
+import decoration from "../../../assets/icons/decoration-logo.svg";
 import checkMark from "../../../assets/icons/check-mark.svg";
 
 function CircleCards() {
