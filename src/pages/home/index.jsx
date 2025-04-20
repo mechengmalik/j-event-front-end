@@ -1,92 +1,44 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import SignInFooter from "../../components/signin/signin-footer";
-import SignInImage from "../../components/signin/signin-image";
-import SignInHeader from "../../components/signin/signin-header";
+import Navbar from "../../components/navbar/index";
 import "./home.css";
+import HomePageSlider from "../../components/home-page/home-page-slider";
+import LocationEvents from "../../components/home-page/user-location-event-slider";
+import Footer from "../../components/home-page/footer";
+import CircleCards from "../../components/home-page/circle-cards";
+import EventsCards from "../../components/home-page/events-cards";
+import HomeBanner from "../../components/home-page/home-banner";
 
-function SignIn() {
-  const navigate = useNavigate();
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-
-    navigate("/dashboard");
-  };
-  // const [formData, setFormData] = useState({
-  //   name: '',
-  //   email: '',
-  //   password: '',
-  // });
-
-  // const handleChange = (e) => {
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log('Form Submitted:', formData);
-  //   // Here you'd normally send data to a backend or validate
-  // };
-
+function Home() {
   return (
-    <div className="sign-in-page flex h-screen">
-      <SignInImage signin={true} />
-
-      <div className="sign-in-container w-1/2 flex flex-col justify-between items-center px-10 py-5">
-        <SignInHeader />
-
-        <div className="sign-in-wrapper w-ful px-30 ">
-          <div className="sign-in-form w-full px-2">
-            <div className="sign-in-form-header flex flex-col  ">
-              <h2 className="welcome  font-bold text-3xl p-2  ">Welcome</h2>
-              <p className="login-text text-sm text-black/70 text-center pb-5">
-                Log in and enjoy our unique, exciting, and unforgettable events
-              </p>
-            </div>
-            <div className="flex flex-row">
-              <form className="w-full">
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="input w-full text-sm pl-3 py-2 mb-2 text-[#49454F] border border-[#79747E] focus:outline-none  focus:ring-[#79747E]"
-                />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="input w-full text-sm pl-3 py-2 mb-3 text-[#49454F] border border-[#79747E] focus:outline-none  focus:ring-[#79747E]"
-                />
-                <label className=" sign-in-checkbox flex items-center text-xs pb-3 ">
-                  <input type="checkbox" className="mr-2 accent-purple-500" />
-                  Keep me signed in
-                </label>
-                <button
-                  onClick={handleLogin}
-                  type="submit"
-                  className="sign-in-btn w-full bg-regal-purple text-sm text-white py-3 hover:bg-purple-500 "
-                >
-                  Login
-                </button>
-              </form>
-            </div>
-          </div>
-          <SignInFooter signin={true} />
-        </div>
-        <div className=" flex justify-center gap-2 text-xs text-black/70 py-5  ">
-          <a href="#" className="hover:underline">
-            Terms of use
-          </a>{" "}
-          ·{" "}
-          <a href="#" className="hover:underline">
-            Privacy policy
-          </a>
-        </div>
+    <div className="home-container relative flex flex-col justify-center">
+      <div className="home-navbar bg-transparent w-full h-[800px] bg-cover bg-top bg-[url('src/assets/icons/home-page-banner.svg')]">
+        <Navbar homePage={true} />
+        <HomeBanner />
       </div>
+
+      <div className="h-[41rem]"></div>
+
+      <div className="home-page-slider absolute top-[710px] md:top-[708px] lg:top-[710px] xl:top-[710px] 2xl:top-[710px] h-[600px] md:h-[650px] lg:h-[700px] xl:h-[700px] 2xl:h-[700px] left-0 w-full px-6 sm:px-12 md:px-24 lg:px-36 z-10">
+        <HomePageSlider />
+      </div>
+
+      <div className="event-slider w-full px-4 sm:px-10 md:px-16 lg:px-28 xl:px-44 h-auto min-h-[872px] mt-[6rem]">
+        <LocationEvents />
+      </div>
+
+      <div className="h-[6rem] sm:h-[10rem] md:h-[13rem]"></div>
+
+      <CircleCards />
+
+      <div className="h-[6rem] sm:h-[10rem] md:h-[13rem]"></div>
+
+      <EventsCards />
+
+      <div className="h-[5rem] sm:h-[6rem] md:h-[8rem]"></div>
+
+      <Footer />
     </div>
   );
 }
 
-export default SignIn;
+export default Home;

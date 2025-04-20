@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@layer utilities {
+    .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+        width: 5%;
+        padding: 0 50%;
+    
+      }
+    
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+        width: 5%;
+        padding: 0 50%;
+
+      }
+    
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #ffffff; /* purple */
+        border-radius: 48px;
+        width: 5%;
+        padding: 0 50%;
+
+      }
+    
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background-color: #ffffff; /* lighter purple on hover */
+      }
+}
