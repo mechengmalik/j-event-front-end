@@ -42,7 +42,7 @@ function Dashboard({ children }) {
 
   return (
     <>
-      <div className="dashboard-wrapper flex w-full h-screen py-2 relative">
+      <div className="dashboard-wrapper flex w-full h-full py-2 relative">
         
         {isMobile && !showSidebar && (
           <button
@@ -60,9 +60,9 @@ function Dashboard({ children }) {
               isMobile
                 ? "fixed top-0 left-0 w-2/3 sm:w-1/3 md:w-1/4 z-40"
                 : "relative w-1/4 max-w-[250px] min-w-[200px]"
-            } h-full bg-white shadow-md transition-transform duration-300`}
+            } bg-white shadow-md transition-transform duration-300`}
           >
-            <Sidebar onClose={() => setShowSidebar(false)} />
+            <Sidebar isMobile={isMobile} showSidebar={showSidebar} onClose={() => setShowSidebar(false)} />
           </div>
         )}
          <div className="dashboard-main-content flex-1 p-1 overflow-y-auto">

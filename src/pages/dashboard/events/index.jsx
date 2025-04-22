@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Dashboard from "../index";
 import EventList from "../../../components/events-list";
 import plusIcon from "../../../assets/icons/plus-icon.svg"
@@ -25,7 +26,9 @@ function Events() {
             <div className="create-events-wrapper">
               <button className="create-events-btn flex gap-2 bg-regal-purple hover:bg-purple-500 text-white py-2 px-3">
                 <img src={plusIcon} alt="plus icon" />
-                 Create Event
+              <Link to="/create-event" className="">
+                Create Event
+              </Link>
               </button>
             </div>
           </div>
