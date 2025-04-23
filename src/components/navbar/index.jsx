@@ -30,12 +30,12 @@ function Navbar({ homePage }) {
 
               <div className="hidden md:flex gap-8 text-white items-center">
                 <Link to="/">Home</Link>
-                <Link to="/events">Events</Link>
+                <Link to="/dashboard/events">Events</Link>
                 <Link to="/about">About Jevent</Link>
                 <div className="p-[1px] bg-gradient-to-l from-[#8354A3] to-[#00C2D1]">
                   <Link
                     className="flex gap-2 items-center bg-black py-2 px-4"
-                    to="/create-event"
+                    to="/dashboard/create-event"
                   >
                     <img src={plus} alt="plus" /> Create Event
                   </Link>
@@ -73,9 +73,9 @@ function Navbar({ homePage }) {
           {showMobileMenu && (
             <div className="md:hidden flex flex-col gap-4 items-center bg-black text-white py-6">
               <Link to="/">Home</Link>
-              <Link to="/events">Events</Link>
+              <Link to="/dashboard/events">Events</Link>
               <Link to="/about">About Jevent</Link>
-              <Link to="/create-event" className="bg-gradient-to-l from-[#8354A3] to-[#00C2D1] px-4 py-2 rounded">
+              <Link to="/dashboard/create-event" className="bg-gradient-to-l from-[#8354A3] to-[#00C2D1] px-4 py-2 rounded">
                 Create Event
               </Link>
               <Link to="/sign-in">Sign In</Link>

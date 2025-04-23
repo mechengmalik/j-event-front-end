@@ -11,19 +11,19 @@ const sideMenuContent = [
     id: 1,
     name: "Overview",
     icon: OverviewdIcon,
-    link: "/sign-up",
+    link: "/dashboard/overview",
   },
   {
     id: 2,
     name: "Events",
     icon: eventsIcon,
-    link: "/events",
+    link: "/dashboard/events",
   },
   {
     id: 3,
     name: "Settings",
     icon: settingsIcon,
-    link: "/settings",
+    link: "/dashboard/settings",
   },
 ];
 

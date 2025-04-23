@@ -1,5 +1,6 @@
 // components/event/CreateEventForm.jsx
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -71,6 +72,7 @@ function CreateEventForm({ onSubmit, defaultValues = {} }) {
   console.log(errors);
 
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const navigate = useNavigate();
 
   const locationType = watch("locationType");
 
@@ -243,7 +245,8 @@ function CreateEventForm({ onSubmit, defaultValues = {} }) {
         <div className="flex justify-between gap-6 pt-8">
           <button
             type="button"
-            className="border border-[#C8C8C8] w-1/2 px-6 py-2 bg-white  hover:bg-gray-100"
+            onClick={() => navigate("/events")}
+            className="border border-[#C8C8C8] w-1/2 px-6 py-2 bg-white hover:bg-gray-100"
           >
             Cancel
           </button>

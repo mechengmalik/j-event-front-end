@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from "react";
+import { Outlet } from "react-router-dom";
 import Sidebar from "../../components/sidebar";
 import Navbar from "../../components/navbar";
 import menuIcon from "../../assets/icons/menu-icon.svg";
 import "./dashboard.css";
 
-function Dashboard({ children }) {
+function Dashboard() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1000);
   const sidebarRef = useRef(null);
@@ -67,7 +68,7 @@ function Dashboard({ children }) {
         )}
          <div className="dashboard-main-content flex-1 p-1 overflow-y-auto">
         <Navbar />
-        {children}
+        <Outlet /> {/* This is where Events, CreateEvent etc will render */}
       </div>
 
       </div>
