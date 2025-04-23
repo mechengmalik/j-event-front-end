@@ -1,0 +1,11 @@
+.css-b62m3t-container{
+    width: -webkit-fill-available;
+}
+
+.custom-select__multi-value {
+    transition: all 0.2s ease;
+  }
+  .custom-select__multi-value__remove {
+    padding-left: 4px;
+    padding-right: 4px;
+  }

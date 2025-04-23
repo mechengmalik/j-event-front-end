@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Dashboard from "../index";
+import { Link } from "react-router-dom";
 import EventList from "../../../components/events-list";
 import plusIcon from "../../../assets/icons/plus-icon.svg"
 import "./events.css"
@@ -15,7 +15,6 @@ function Events() {
   const [activeFilter, setActiveFilter] = useState(1);
 
   return (
-    <Dashboard>
       <div className="events-container">
         <div className="events-wrapper flex flex-col gap-1 items-start pl-12 pr-10 pt-10 ">
           <div className="events-heading w-full flex justify-between items-center ">
@@ -25,7 +24,9 @@ function Events() {
             <div className="create-events-wrapper">
               <button className="create-events-btn flex gap-2 bg-regal-purple hover:bg-purple-500 text-white py-2 px-3">
                 <img src={plusIcon} alt="plus icon" />
-                 Create Event
+              <Link to="/dashboard/create-event" className="">
+                Create Event
+              </Link>
               </button>
             </div>
           </div>
@@ -61,7 +62,6 @@ function Events() {
           </div>
         </div>
       </div>
-    </Dashboard>
   );
 }
 

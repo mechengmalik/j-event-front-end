@@ -10,11 +10,15 @@ function SignInFooter({ signin }) {
       <div className="divider w-full">
         <div className="divider-line flex items-center gap-2 my-4">
           <hr className="flex-grow border-t border-black/60" />
-          {signin? <span className="log-or-sign-text text-xs font-semibold text-black uppercase">
-            Or login with
-          </span>: <span className="text-xs font-semibold text-black uppercase">
-          OR SIGN UP WITH
-          </span>}
+          {signin ? (
+            <span className="log-or-sign-text text-xs font-semibold text-black uppercase">
+              Or login with
+            </span>
+          ) : (
+            <span className="text-xs font-semibold text-black uppercase">
+              OR SIGN UP WITH
+            </span>
+          )}
           <hr className="flex-grow border-t border-black/60" />
         </div>
 
@@ -24,14 +28,16 @@ function SignInFooter({ signin }) {
             <span className="text-black text-sm">Google</span>
           </button>
           <button className="outlook-btn-wrapper flex items-center justify-center border border-black/70 py-3 gap-2 hover:bg-gray-100 transition">
-            <img src={oulookIcon}  alt="Outlook" className="outlook-btn w-1/6" />
+            <img src={oulookIcon} alt="Outlook" className="outlook-btn w-1/6" />
             <span className="text-black text-sm">Outlook</span>
           </button>
         </div>
 
         {signin ? (
           <div className="reg-login-text-wrapper text-sm flex justify-center items-center">
-            <p className=" reg-login-text text-black/70">Don’t have an account?</p>
+            <p className=" reg-login-text text-black/70">
+              Don’t have an account?
+            </p>
             <span>
               {" "}
               <Link
@@ -59,8 +65,6 @@ function SignInFooter({ signin }) {
           </div>
         )}
       </div>
-      
-      
     </div>
   );
 }

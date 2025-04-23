@@ -9,7 +9,8 @@ import editIcon from "../../assets/icons/edit-icon.svg";
 import copyIcon from "../../assets/icons/copy-icon.svg";
 import trashIcon from "../../assets/icons/trash.svg";
 
-function EventCard({ event }) {
+function EventCard({ event, onManage, onOverview, onClone, onDelete }) {
+  console.log("🚀 ~ EventCard ~ event:", event);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const menuRef = useRef(null);
@@ -45,9 +46,12 @@ function EventCard({ event }) {
         </button>
 
         {menuOpen && (
-          <div className=" event-menu absolute right-0 mt-2 w-40 bg-white border  shadow-md z-50 text-sm">
+          <div className=" event-menu absolute right-0 mt-2 w-40 bg-white border shadow-md z-50 text-sm">
             <div className="overview-option">
-              <button className="overview-button w-full flex gap-2 px-4 py-2 hover:bg-black/10">
+              <button
+                onClick={() => onOverview(event.id)}
+                className="overview-button w-full flex gap-2 px-4 py-2 hover:bg-black/10"
+              >
                 <img
                   className="overview-icon"
                   src={exclamationMarkView}
@@ -57,19 +61,28 @@ function EventCard({ event }) {
               </button>
             </div>
             <div className="manage-option">
-              <button className="manage-button w-full flex gap-2 px-4 py-2 hover:bg-black/10">
+              <button
+                onClick={() => onManage(event.id)}
+                className="manage-button w-full flex gap-2 px-4 py-2 hover:bg-black/10"
+              >
                 <img className="manage-icon" src={editIcon} alt="manage" />
                 Manage
               </button>
             </div>
             <div className="clone-option">
-              <button className="clone-button w-full text-xs flex gap-2 px-4 py-2 hover:bg-black/10">
+              <button
+                onClick={() => onClone(event.id)}
+                className="clone-button w-full flex gap-2 px-4 py-2 hover:bg-black/10"
+              >
                 <img className="copy-icon-icon" src={copyIcon} alt="copy" />
                 Clone
               </button>
             </div>
             <div className="delete-option">
-              <button className="block w-full flex gap-3 text-left px-4 py-2 text-red-600 hover:bg-black/10">
+              <button
+                onClick={() => onDelete(event.id)}
+                className="block w-full flex gap-3 text-left px-4 py-2 text-red-600 hover:bg-black/10"
+              >
                 <img className="trash-icon" src={trashIcon} alt="trash-icon" />
                 Move to trash
               </button>
