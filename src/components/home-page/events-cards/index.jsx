@@ -16,7 +16,7 @@ const eventsData = [
 
 function EventsCards() {
   return (
-    <div className="w-full px-4 sm:px-8 md:px-16 lg:px-24 py-12">
+    <div className="w-full py-12 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32">
       {/* Heading */}
       <div className="flex flex-col text-left gap-4 pb-10">
         <div>
@@ -28,11 +28,11 @@ function EventsCards() {
       </div>
 
       {/* Events Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid gap-6 grid-cols-[repeat(auto-fit,_minmax(270px,_1fr))] justify-center">
         {eventsData.map((event) => (
           <div
             key={event.id}
-            className="bg-[#F8F8F8] border border-gray-200 shadow-sm rounded-md overflow-hidden flex flex-col transition hover:shadow-md"
+            className="w-full max-w-[270px] bg-[#F8F8F8] border border-gray-200 shadow-sm rounded-md overflow-hidden flex flex-col transition hover:shadow-md"
           >
             <img
               src={event.image}
