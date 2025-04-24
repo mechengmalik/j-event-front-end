@@ -34,17 +34,17 @@ function CircleCards() {
   ];
 
   return (
-    <div className="w-full flex justify-center items-center px-4">
-      <div className="relative w-[90vw] max-w-[673px] aspect-square my-10 flex items-center justify-center">
+    <div>
+      <div className="relative w-[673px] h-[673px] mx-auto my-10 flex items-center justify-center">
         {/* Gradient Circle */}
         <div className="absolute inset-0 rounded-full p-[1px] bg-gradient-to-tr from-[#8354A3] to-[#00C2D1]">
           <div className="w-full h-full rounded-full bg-white"></div>
         </div>
 
         {/* Center Text + Image */}
-        <div className="absolute text-center z-10 w-[65%] px-4">
-          <img src={decoration} alt="decoration" className="mx-auto mb-2 w-12 sm:w-16" />
-          <h2 className="text-2xl sm:text-4xl font-bold text-black">
+        <div className="absolute text-center z-10 w-[22.5rem]">
+          <img src={decoration} alt="decoration" className="mx-auto mb-2" />
+          <h2 className="text-5xl font-bold text-black px-10">
             Organize Your Event
           </h2>
         </div>
@@ -52,27 +52,29 @@ function CircleCards() {
         {/* Cards Around the Circle */}
         {cardsData.map((card, i) => {
           const angle = (360 / cardsData.length) * i - 90;
-          const radiusPercent = 42; // % of container
+          const radius = 336.5;
           const rad = (angle * Math.PI) / 180;
-          const x = radiusPercent * Math.cos(rad);
-          const y = radiusPercent * Math.sin(rad);
+          const x = radius * Math.cos(rad);
+          const y = radius * Math.sin(rad);
 
           return (
             <div
               key={card.id}
-              className="absolute p-[1px] flex justify-between bg-gradient-to-tr from-[#8354A3] to-[#00C2D1] rounded-md w-[30vw] max-w-[224px]"
+              className="absolute p-[1px] flex justify-between bg-gradient-to-tr from-[#8354A3] to-[#00C2D1] rounded-md"
               style={{
-                left: `calc(50% + ${x}% - 15vw)`,
-                top: `calc(50% + ${y}% - 15vw)`,
+                left: `calc(50% + ${x}px - 112px)`,
+                top: `calc(50% + ${y}px - 112px)`,
               }}
             >
-              <div className="w-full aspect-square bg-[#F6F6F6] rounded-md flex items-center justify-around text-center px-2 py-2">
-                <div className="h-full flex flex-col justify-start gap-2 items-center py-4">
-                  <img src={checkMark} alt="check mark" className="w-6 h-6" />
-                  <h3 className="text-[#8354A3] font-semibold text-sm sm:text-base">
+              <div className="w-[224px] h-[224px] bg-[#F6F6F6] rounded-md flex items-center justify-around text-center px-4 py-2">
+                <div className="h-full flex flex-col justify-start gap-4 items-center py-8">
+                  <div className="">
+                    <img src={checkMark} alt="check mark" />
+                  </div>
+                  <h3 className="text-[#8354A3] font-semibold text-base text-bold">
                     {card.title}
                   </h3>
-                  <p className="text-[#8354A3] text-xs sm:text-sm">{card.details}</p>
+                  <p className="text-[#8354A3] text-sm text-normal">{card.details}</p>
                 </div>
               </div>
             </div>

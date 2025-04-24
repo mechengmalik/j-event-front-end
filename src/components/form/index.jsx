@@ -12,9 +12,16 @@ import LocationForm from "../location-venue";
 
 const schema = yup.object().shape({
   eventName: yup.string().required("Event name is required"),
+  eventLink: yup
+  .string()
+  .url("Please enter a valid URL")
+  .required("Event link is required"),
   description: yup.string().required("Description is required"),
   locationType: yup.string().required("Location type is required"),
-  category: yup.object().required("Category is required"),
+  category: yup
+    .array()
+    .min(1, "Select at least one Category")
+    .required("Category are required"),
   keywords: yup
     .array()
     .min(1, "Select at least one keyword")
@@ -64,9 +71,11 @@ function CreateEventForm({ onSubmit, defaultValues = {} }) {
     handleSubmit,
     control,
     watch,
+    trigger,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    mode: "onChange",
     defaultValues,
   });
   console.log(errors);
@@ -75,6 +84,7 @@ function CreateEventForm({ onSubmit, defaultValues = {} }) {
   const navigate = useNavigate();
 
   const locationType = watch("locationType");
+  const startDate = watch("startDate");
 
   return (
     <>
@@ -82,7 +92,7 @@ function CreateEventForm({ onSubmit, defaultValues = {} }) {
         onSubmit={handleSubmit((data) =>
           onSubmit({ ...data, location: selectedLocation })
         )}
-        className=""
+        
       >
         {/* Event Name */}
         <div className="flex flex-col items-start">
@@ -96,7 +106,6 @@ function CreateEventForm({ onSubmit, defaultValues = {} }) {
           />
           <p className="text-red-500 text-sm">{errors.eventName?.message}</p>
         </div>
-
         {/* Description */}
         <div className="flex flex-col items-start">
           <label className=" text-left block text-base font-medium pt-4 pb-2">
@@ -109,7 +118,6 @@ function CreateEventForm({ onSubmit, defaultValues = {} }) {
           />
           <p className="text-red-500 text-sm">{errors.description?.message}</p>
         </div>
-
         {/* Location Type */}
         <div className="flex flex-col items-start">
           <Controller
@@ -139,7 +147,6 @@ function CreateEventForm({ onSubmit, defaultValues = {} }) {
 
           <p className="text-red-500 text-sm">{errors.locationType?.message}</p>
         </div>
-
         {/* Category */}
         <div className="flex flex-col items-start w-full text-left">
           <Controller
@@ -147,16 +154,17 @@ function CreateEventForm({ onSubmit, defaultValues = {} }) {
             control={control}
             render={({ field }) => (
               <CustomSelectInput
+                isMulti={true}
                 placeholder="Select Category"
                 label="Category"
                 options={categories}
                 field={field}
                 error={errors.category?.message}
+                allowCustomOption={false}
               />
             )}
           />
         </div>
-
         {/* Keywords */}
         <div className="flex flex-col items-start w-full text-left">
           <Controller
@@ -170,12 +178,12 @@ function CreateEventForm({ onSubmit, defaultValues = {} }) {
                 label="Keywords"
                 options={categories}
                 field={field}
-                error={errors.category?.message}
+                error={errors.keywords?.message}
+                allowCustomOption={true}
               />
             )}
           />
         </div>
-
         {/* Dates */}
         <div className="flex gap-4 w-full">
           {/* Start Date */}
@@ -187,7 +195,10 @@ function CreateEventForm({ onSubmit, defaultValues = {} }) {
                 <CommonDatePicker
                   label="Start Date"
                   value={field.value}
-                  onChange={field.onChange}
+                  onChange={(date) => {
+                    field.onChange(date);
+                    trigger("endDate");
+                  }}
                   onBlur={field.onBlur}
                   placeholder="Select start date"
                   id="startDate"
@@ -206,17 +217,20 @@ function CreateEventForm({ onSubmit, defaultValues = {} }) {
                 <CommonDatePicker
                   label="End Date"
                   value={field.value}
-                  onChange={field.onChange}
+                  onChange={(date) => {
+                    field.onChange(date);
+                    trigger("startDate");
+                  }}
                   onBlur={field.onBlur}
                   placeholder="Select end date"
                   id="endDate"
                   error={errors.endDate?.message}
+                  minDate={startDate || new Date()} 
                 />
               )}
             />
           </div>
         </div>
-
         {/* Banner */}
         <div>
           <Controller
@@ -232,6 +246,19 @@ function CreateEventForm({ onSubmit, defaultValues = {} }) {
             )}
           />
         </div>
+        {(locationType !== "in-person") && (
+        <div className="flex flex-col items-start">
+          <label className=" text-left block text-base font-medium pt-4 pb-2">
+            <span className="text-red-500">* </span> Event Link
+          </label>
+          <input
+            {...register("eventLink")}
+            className="block w-full border border-[#C8C8C8]  px-4 py-4 text-sm"
+            placeholder="Type the event link..."
+          />
+          <p className="text-red-500 text-sm">{errors.eventLink?.message}</p>
+        </div>
+         )}
 
         {(locationType === "in-person" || locationType === "hybrid") && (
           <LocationForm
@@ -241,7 +268,6 @@ function CreateEventForm({ onSubmit, defaultValues = {} }) {
             selectedLocation={selectedLocation}
           />
         )}
-
         <div className="flex justify-between gap-6 pt-8">
           <button
             type="button"
