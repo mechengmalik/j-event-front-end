@@ -16,12 +16,40 @@ function CreateEvent() {
       localStorage.setItem("eventFormData", JSON.stringify(data));
   
       // Navigate to events list
-      navigate("/events");
+      // navigate(`/dashboard/events/${data}`);
     } catch (error) {
       console.error("Failed to create event:", error);
     }
   };
+  // const handleFormSubmit = async (data) => {
+  //   try {
+  //     // Send data to your backend
+  //     const response = await fetch("/api/events", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
   
+  //     if (!response.ok) {
+  //       throw new Error("Failed to create event");
+  //     }
+  
+  //     const createdEvent = await response.json();
+  
+  //     // Example: response = { id: 123, ...otherEventData }
+  //     const eventId = createdEvent.id;
+  
+  //     if (eventId) {
+  //       navigate(`/dashboard/events/${eventId}`);
+  //     } else {
+  //       console.warn("No event ID returned from the backend.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Failed to create event:", error);
+  //   }
+  // };
   
   
 

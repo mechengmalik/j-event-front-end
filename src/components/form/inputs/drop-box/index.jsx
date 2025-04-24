@@ -2,7 +2,6 @@ import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { twMerge } from "tailwind-merge";
 import uploadIcon from "../../../../assets/icons/upload-icon.svg";
-import trashIcon from "../../../../assets/icons/trash.svg";
 
 const CustomDropzone = ({
   label,
@@ -21,7 +20,7 @@ const CustomDropzone = ({
       if (file) {
         setPreview(URL.createObjectURL(file));
         setFileName(file.name);
-        onChange(file)// <-- this is key
+        onChange(file);
       }
     },
     [onChange]
@@ -33,13 +32,12 @@ const CustomDropzone = ({
     onChange({ target: { name, value: null } });
   };
 
-  const { getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps, open } = useDropzone({
     onDrop,
     accept: {
       "image/*": [".jpg", ".jpeg", ".png"],
     },
-    maxSize: 10 * 1024 * 1024, // 10MB
-    disabled: !!preview, // disable if image already uploaded
+    maxSize: 10 * 1024 * 1024,
     multiple: false,
   });
 
@@ -54,41 +52,46 @@ const CustomDropzone = ({
       <div
         {...getRootProps()}
         className={twMerge(
-          "relative flex flex-col items-center text-center border border-[#C8C8C8] p-52 text-center text-sm cursor-pointer overflow-hidden"
+          "relative flex flex-col items-center justify-center text-center border border-[#C8C8C8] h-[300px] text-sm cursor-pointer overflow-hidden"
         )}
       >
         <input {...getInputProps()} />
         {preview ? (
-          <img
-            src={preview}
-            alt="Uploaded"
-            className="absolute inset-0 w-full h-full"
-          />
+          <div
+          className="w-full h-full bg-no-repeat bg-contain bg-center"
+          style={{ backgroundImage: `url(${preview})` }}
+          >
+            <div className="absolute top-2 right-2 flex gap-2 z-10">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  open();
+                }}
+                className="text-white font-medium border border-white px-8 py-4"
+              >
+                Replace
+              </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  removeImage();
+                }}
+                className="bg-[#D03A2A] font-medium text-white px-8 py-4"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
         ) : (
-          <>
-            <div>
-              <img src={uploadIcon} alt="upload img" />
-            </div>
-            <div className="py-2 text-sm text-[#858585]">
-              <p className="mb-2">{fileName || placeholder}</p>
-              <p className="">{recommendedText}</p>
-            </div>
-          </>
+          <div className="flex flex-col items-center justify-center h-full">
+            <img src={uploadIcon} alt="upload icon" />
+            <p className="mb-2">{fileName || placeholder}</p>
+            <p className="text-[#858585]">{recommendedText}</p>
+          </div>
         )}
       </div>
-
-      {preview && (
-        <button
-          type="button"
-          onClick={removeImage}
-          className="my-4 flex justify-center text-sm w-full"
-        >
-          <span className="flex items-center gap-2 text-black/80">
-            <img src={trashIcon} alt="trash icon" />
-            Remove Banner
-          </span>
-        </button>
-      )}
 
       {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>

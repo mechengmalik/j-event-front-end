@@ -1,5 +1,6 @@
 import React from "react";
 import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 import { twMerge } from "tailwind-merge";
 import "./select.css";
 
@@ -11,19 +12,33 @@ const CustomSelectInput = ({
   placeholder,
   isSearchable = false,
   isMulti = false,
+  allowCustomOption = false,
 }) => {
+  const SelectComponent = allowCustomOption ? CreatableSelect : Select;
+
   return (
     <div className="flex flex-col items-start w-full">
       <label className="text-left block text-base pt-4 pb-2">
         <span className="text-red-500">*</span> {label}
       </label>
 
-      <Select
+      <SelectComponent
         {...field}
         isMulti={isMulti}
         isSearchable={isSearchable}
         placeholder={placeholder}
         options={options}
+        onCreateOption={
+          allowCustomOption
+            ? (inputValue) => {
+                const newOption = { label: inputValue, value: inputValue };
+                const newValue = isMulti
+                  ? [...(field.value || []), newOption]
+                  : newOption;
+                field.onChange(newValue);
+              }
+            : undefined
+        }
         classNamePrefix="custom-select"
         classNames={{
           control: () =>
@@ -36,26 +51,32 @@ const CustomSelectInput = ({
         styles={{
           control: (base) => ({
             ...base,
-            minHeight: "56px",
-            paddingLeft: "4px",
+            minHeight: "2rem",
+            paddingLeft: "0.25rem",
             cursor: "pointer",
           }),
           multiValue: (base) => ({
             ...base,
             backgroundColor: "#8354A3",
-            padding: "2px 5px",
+            minHeight: "2rem",
+            alignItems: "center",
           }),
           multiValueLabel: (base) => ({
             ...base,
             color: "white",
+            padding: ".25rem 1rem",
+            paddingLeft: "1rem",
           }),
           multiValueRemove: (base) => ({
             ...base,
             color: "white",
             cursor: "pointer",
+            minHeight: "2rem",
+            minWidth: "2rem",
+            justifyContent: "center",
             ":hover": {
-              backgroundColor: "white",
-              color: "#4C1D95",
+              backgroundColor: "#D03A2A",
+              color: "white",
             },
           }),
         }}
