@@ -23,9 +23,11 @@ function Navbar({ homePage }) {
       {homePage ? (
         <>
           {/* Top Navbar */}
-          <div className="flex justify-between items-center px-6 md:px-20 lg:px-36 py-4 relative">
+          <div className="flex justify-between items-center px-6 md:px-20 lg:px-36 py-4 relative ">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black via-black/70 to-transparent z-0 pointer-events-none"></div>
+
             {/* Left side: Logo + Desktop Menu */}
-            <div className="flex items-center gap-12">
+            <div className="flex items-center gap-12 z-10">
               <img src={whiteLogo} alt="logo" className="mt-3" />
 
               <div className="hidden md:flex gap-8 text-white items-center">
@@ -44,7 +46,7 @@ function Navbar({ homePage }) {
             </div>
 
             {/* Right side */}
-            <div className="hidden md:flex items-center gap-6 text-white">
+            <div className="hidden md:flex items-center gap-6 text-white z-10">
               <div className="flex gap-1 text-xs items-center">
                 <img src={whiteLanguage} />
                 <select

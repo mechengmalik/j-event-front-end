@@ -1,35 +1,36 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Stage, Layer, Rect, Circle, Text, Group, Transformer } from "react-konva";
+import Konva from "konva";
 
 const ELEMENT_SIZE = 40;
 const STAGE_WIDTH = 1000;
 const STAGE_HEIGHT = 600;
-const CHAIR_ROW_COUNT = 10;
 const CHAIR_SPACING = 10;
+const MIN_SCALE = 0.5;
+const MAX_SCALE = 2;
 
 const SeatingMapBuilder = () => {
   const [elements, setElements] = useState([]);
   const [selectedTool, setSelectedTool] = useState("chair");
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedIds, setSelectedIds] = useState([]);
   const [history, setHistory] = useState([]);
   const [future, setFuture] = useState([]);
-  const [stageScale, setStageScale] = useState(1);
-  const [stagePosition, setStagePosition] = useState({ x: 0, y: 0 });
   const [rows, setRows] = useState(1);
   const [columns, setColumns] = useState(1);
 
   const stageRef = useRef(null);
   const transformerRef = useRef(null);
   const shapeRefs = useRef({});
+  const [selection, setSelection] = useState(null);
+  const selectionRef = useRef(null);
+  const [isSelecting, setIsSelecting] = useState(false);
+  const selectionStart = useRef(null);
 
   useEffect(() => {
-    const node = shapeRefs.current[selectedId];
-    const transformer = transformerRef.current;
-    if (node && transformer) {
-      transformer.nodes([node]);
-      transformer.getLayer().batchDraw();
-    }
-  }, [selectedId, elements]);
+    const nodes = selectedIds.map(id => shapeRefs.current[id]).filter(Boolean);
+    transformerRef.current.nodes(nodes);
+    transformerRef.current.getLayer().batchDraw();
+  }, [selectedIds, elements]);
 
   const addElement = (x, y) => {
     const newElement = {
@@ -40,85 +41,123 @@ const SeatingMapBuilder = () => {
       width: selectedTool === "stage" ? ELEMENT_SIZE * 2 : ELEMENT_SIZE,
       height: ELEMENT_SIZE,
       rotation: 0,
-      label: "",
     };
-    const newElements = [...elements, newElement];
     setHistory([...history, elements]);
-    setElements(newElements);
+    setElements([...elements, newElement]);
     setFuture([]);
   };
 
   const addMultipleChairs = (x, y) => {
     const newChairs = [];
-    const spacing = 10;
     let idCounter = Date.now();
-
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < columns; col++) {
         newChairs.push({
           id: idCounter++,
           type: "chair",
-          x: x + col * (ELEMENT_SIZE + spacing),
-          y: y + row * (ELEMENT_SIZE + spacing),
+          x: x + col * (ELEMENT_SIZE + CHAIR_SPACING),
+          y: y + row * (ELEMENT_SIZE + CHAIR_SPACING),
           width: ELEMENT_SIZE,
           height: ELEMENT_SIZE,
           rotation: 0,
-          label: "",
         });
       }
     }
-
     setHistory([...history, elements]);
     setElements([...elements, ...newChairs]);
     setFuture([]);
   };
 
-  const addChairRow = (x, y) => {
-    const newChairs = [];
-    let idCounter = Date.now();
-    for (let i = 0; i < CHAIR_ROW_COUNT; i++) {
-      newChairs.push({
-        id: idCounter++,
-        type: "chair",
-        x: x + i * (ELEMENT_SIZE + CHAIR_SPACING),
-        y,
-        width: ELEMENT_SIZE,
-        height: ELEMENT_SIZE,
-        rotation: 0,
-        label: "",
-      });
+  const handleMouseDown = (e) => {
+    const stage = stageRef.current;
+    if (selectedTool === "hand") return;
+  
+    if (selectedTool === "select") {
+      if (e.target !== e.target.getStage()) return;
+      const { x, y } = stage.getRelativePointerPosition();
+      setIsSelecting(true);
+      selectionStart.current = { x, y };
+      setSelection({ x, y, width: 0, height: 0 });
+      return;
     }
-    setHistory([...history, elements]);
-    setElements([...elements, ...newChairs]);
-    setFuture([]);
-  };
-
-  const handleClick = (e) => {
-    const clickedOnEmpty = e.target === e.target.getStage();
-    if (clickedOnEmpty) {
-      const stage = e.target.getStage();
-      const pointerPosition = stage.getPointerPosition();
-      const adjustedX = (pointerPosition.x - stagePosition.x) / stageScale;
-      const adjustedY = (pointerPosition.y - stagePosition.y) / stageScale;
+  
+    if (e.target === e.target.getStage()) {
+      const { x, y } = stage.getRelativePointerPosition();
       if (selectedTool === "multi-chair") {
-        addMultipleChairs(adjustedX, adjustedY);
+        addMultipleChairs(x, y);
       } else if (selectedTool === "chair-row") {
-        addChairRow(adjustedX, adjustedY);
+        for (let row = 0; row < rows; row++) {
+          const offsetY = row * (ELEMENT_SIZE + CHAIR_SPACING);
+          for (let col = 0; col < columns; col++) {
+            addElement(x + col * (ELEMENT_SIZE + CHAIR_SPACING), y + offsetY);
+          }
+        }
       } else {
-        addElement(adjustedX, adjustedY);
+        addElement(x, y);
       }
-      setSelectedId(null);
-    } else {
-      const clickedId = e.target.parent.attrs.id;
-      setSelectedId(clickedId);
     }
+  };
+  
+  const handleMouseMove = () => {
+    if (!isSelecting || !selectionStart.current) return;
+    const stage = stageRef.current;
+    const { x, y } = stage.getRelativePointerPosition();
+    const sx = selectionStart.current.x;
+    const sy = selectionStart.current.y;
+    setSelection({
+      x: Math.min(sx, x),
+      y: Math.min(sy, y),
+      width: Math.abs(sx - x),
+      height: Math.abs(sy - y),
+    });
+  };
+  
+
+  const handleMouseUp = () => {
+    if (!isSelecting) return;
+    const box = selection;
+    const selected = elements.filter((el) => {
+      const shape = shapeRefs.current[el.id];
+      if (!shape) return false;
+      const shapeBox = shape.getClientRect({ relativeTo: stageRef.current }); // <-- important
+      return Konva.Util.haveIntersection(shapeBox, box);
+    });
+    setSelectedIds(selected.map((s) => s.id.toString()));
+    setIsSelecting(false);
+    setSelection(null);
+  };
+  
+
+  const handleWheel = (e) => {
+    e.evt.preventDefault();
+    const scaleBy = 1.05;
+    const stage = stageRef.current;
+    const oldScale = stage.scaleX();
+    const pointer = stage.getPointerPosition();
+
+    const mousePointTo = {
+      x: (pointer.x - stage.x()) / oldScale,
+      y: (pointer.y - stage.y()) / oldScale,
+    };
+
+    let newScale = e.evt.deltaY > 0 ? oldScale / scaleBy : oldScale * scaleBy;
+    newScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, newScale));
+
+    const newPos = {
+      x: pointer.x - mousePointTo.x * newScale,
+      y: pointer.y - mousePointTo.y * newScale,
+    };
+
+    stage.scale({ x: newScale, y: newScale });
+    stage.position(newPos);
+    stage.batchDraw();
   };
 
   const clearElements = () => {
     setHistory([...history, elements]);
     setElements([]);
     setFuture([]);
-    setSelectedId(null);
+    setSelectedIds([]);
   };
 
   const undo = () => {
@@ -127,7 +166,7 @@ const SeatingMapBuilder = () => {
     setFuture([elements, ...future]);
     setElements(previous);
     setHistory(history.slice(0, history.length - 1));
-    setSelectedId(null);
+    setSelectedIds([]);
   };
 
   const redo = () => {
@@ -136,34 +175,12 @@ const SeatingMapBuilder = () => {
     setHistory([...history, elements]);
     setElements(next);
     setFuture(future.slice(1));
-    setSelectedId(null);
+    setSelectedIds([]);
   };
 
-  const handleWheel = (e) => {
-    e.evt.preventDefault();
-    const scaleBy = 1.1;
-    const stage = stageRef.current;
-    const oldScale = stageScale;
-    const pointer = stage.getPointerPosition();
-
-    const mousePointTo = {
-      x: (pointer.x - stagePosition.x) / oldScale,
-      y: (pointer.y - stagePosition.y) / oldScale,
-    };
-
-    const newScale = e.evt.deltaY > 0 ? oldScale / scaleBy : oldScale * scaleBy;
-    const newPos = {
-      x: pointer.x - mousePointTo.x * newScale,
-      y: pointer.y - mousePointTo.y * newScale,
-    };
-
-    setStageScale(newScale);
-    setStagePosition(newPos);
-  };
-
-  const handleTransform = (id, newAttrs) => {
+  const handleTransform = (ids, newAttrs) => {
     const updated = elements.map((el) => {
-      if (el.id === id) {
+      if (ids.includes(el.id.toString())) {
         return { ...el, ...newAttrs };
       }
       return el;
@@ -174,6 +191,8 @@ const SeatingMapBuilder = () => {
   return (
     <div className="p-4">
       <div className="flex gap-4 pb-4 items-center">
+        <button onClick={() => setSelectedTool("select")}>Select</button>
+        <button onClick={() => setSelectedTool("hand")}>Hand</button>
         <button onClick={() => setSelectedTool("chair")}>Chair</button>
         <button onClick={() => setSelectedTool("table")}>Table</button>
         <button onClick={() => setSelectedTool("stage")}>Stage</button>
@@ -192,13 +211,11 @@ const SeatingMapBuilder = () => {
       <Stage
         width={STAGE_WIDTH}
         height={STAGE_HEIGHT}
-        onClick={handleClick}
-        scaleX={stageScale}
-        scaleY={stageScale}
-        x={stagePosition.x}
-        y={stagePosition.y}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
         onWheel={handleWheel}
-        draggable
+        draggable={selectedTool === "hand"}
         ref={stageRef}
         className="border rounded-md shadow"
       >
@@ -218,7 +235,7 @@ const SeatingMapBuilder = () => {
                 const scaleY = node.scaleY();
                 node.scaleX(1);
                 node.scaleY(1);
-                handleTransform(el.id, {
+                handleTransform([el.id.toString()], {
                   x: node.x(),
                   y: node.y(),
                   rotation: node.rotation(),
@@ -226,7 +243,7 @@ const SeatingMapBuilder = () => {
                   height: Math.max(10, el.height * scaleY),
                 });
               }}
-              onClick={() => setSelectedId(el.id)}
+              onClick={() => setSelectedIds([el.id.toString()])}
             >
               {el.type === "chair" && (
                 <>
@@ -260,6 +277,21 @@ const SeatingMapBuilder = () => {
               />
             </Group>
           ))}
+
+          {selection && (
+            <Rect
+              ref={selectionRef}
+              x={selection.x}
+              y={selection.y}
+              width={selection.width}
+              height={selection.height}
+              fill="rgba(214, 43, 191, 0.3)"
+              stroke="#00A1FF"
+              strokeWidth={1}
+              dash={[0, 0]}
+            />
+          )}
+
           <Transformer
             ref={transformerRef}
             rotateEnabled
