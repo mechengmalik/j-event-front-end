@@ -1,0 +1,9 @@
+.toolbar{
+ position: fixed;
+ bottom:1% ;
+ left: 50%;
+ display: flex;
+ justify-content: flex-start;
+ width: fit-content;
+ /* padding-left: 10rem; */
+}
