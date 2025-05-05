@@ -1,7 +1,7 @@
 .toolbar{
  position: fixed;
- bottom:1% ;
- left: 50%;
+ bottom:5% ;
+ left: 41.5%;
  display: flex;
  justify-content: flex-start;
  width: fit-content;

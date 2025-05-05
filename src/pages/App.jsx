@@ -8,7 +8,8 @@ import Events from "./dashboard/events";
 import CreateEvent from "./dashboard/create-event";
 import "../pages/App.css";
 import EventDetails from "./dashboard/events/event-details";
-import EventSeatMap from "./dashboard/evebt-seat-map";
+// import EventSeatMap from "./dashboard/event-seat-map";
+import SeatingMapBuilder from "../components/seating-chart";
 
 function App() {
   return (
@@ -26,9 +27,12 @@ function App() {
           <Route path="create-event" element={<CreateEvent />} />
           <Route path="events/:eventId" element={<EventDetails />} />
           {/* <Route path="events/:eventId/edit" element={<EditEvent />} /> */}
-          <Route path="events/seating-map" element={<EventSeatMap />} />
+          {/* <Route path="events/seating-map" element={<EventSeatMap />} /> */}
 
         </Route>
+        <Route path="dashboard/events/seating-map" element={<SeatingMapBuilder />} />
+
+
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
