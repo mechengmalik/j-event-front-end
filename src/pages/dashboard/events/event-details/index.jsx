@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import backArrow from "../../../../assets/icons/back-arrow.svg";
 import Breadcrumbs from "../../../../components/breadcrumbs";
 import eventMarker from "../../../../assets/icons/event-marker.svg";
@@ -14,10 +14,10 @@ import previewIcon from "../../../../assets/icons/preview.svg";
 function EventDetails() {
   const navigate = useNavigate();
 
-  const handleViewSeatMap = () => {
-    navigate(`../events/seating-map`);
-    // navigate(`/events/seating-map/${eventId}`);
-  };
+  // const handleViewSeatMap = () => {
+  //   navigate(`../events/seating-map`);
+  //   // navigate(`/events/seating-map/${eventId}`);
+  // };
 
   return (
     <div className="flex flex-col overflow-y-hidden justify-start px-4 sm:px-6 lg:px-12">
@@ -63,13 +63,24 @@ function EventDetails() {
                       Edit Event
                     </span>
                   </button>
-                  <button
-                    onClick={handleViewSeatMap}
+                  {/* <button
+                    // onClick={handleViewSeatMap}
                     className="border border-white px-4 py-2 text-base sm:h-[56px] w-full sm:w-[202px]"
                   >
                     <span className="flex justify-center items-center gap-2">
                       <img src={seatIcon} alt="seat" className="w-4 h-4" />
                       View Seat Map
+                    </span>
+                  </button> */}
+                  <button
+                    // onClick={handleViewSeatMap}
+                    className="border border-white px-4 py-2 text-base sm:h-[56px] w-full sm:w-[202px]"
+                  >
+                    
+                    <span className="flex justify-center items-center gap-2">
+                      <img src={seatIcon} alt="seat" className="w-4 h-4" />
+                      <Link to={{pathname: "../events/seating-map"}}>View Seat Map</Link>
+
                     </span>
                   </button>
                   <button className="border border-white px-4 py-2 text-base sm:h-[56px] w-full sm:w-[202px]">
