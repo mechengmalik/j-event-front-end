@@ -35,19 +35,11 @@ const isNodeInRect = (node, rect, stage) => {
   );
 };
 
-const Canvas = ({
-  elements,
-  selectedElementIds,
-  selectedSectionId,
-  selectedTool,
-  onSelectionChange,
-  onElementDragEnd,
-  onSectionDragEnd,
-  onTransformEnd,
-  onStageClick,
-  onTextDblClick,
-  sections,
-}) => {
+const Canvas = React.forwardRef(({
+  elements, sections, selectedElementIds, selectedSectionId, selectedTool,
+  onSelectionChange, onElementDragEnd, onSectionDragEnd, onTransformEnd,
+  onStageClick, onTextDblClick
+}, stageParentRef) => {
   console.log("🚀 ~ sections:", sections);
   const stageRef = useRef(null);
   const transformerRef = useRef(null);
@@ -57,6 +49,12 @@ const Canvas = ({
   const isMouseDownRef = useRef(false);
   const dragStartPositionsRef = useRef({});
   const dragStartNodeIdRef = useRef(null);
+  // *** Store only the start position of the initially grabbed node ***
+  const dragStartNodePosRef = useRef({ x: 0, y: 0 });
+  // *** Store the list of IDs selected *at the moment drag started* ***
+  const dragStartSelectedIdsRef = useRef([]);
+  React.useImperativeHandle(stageParentRef, () => stageRef.current);
+
 
   // Drawing State
   const [isDrawingSection, setIsDrawingSection] = useState(false);
@@ -188,6 +186,10 @@ const Canvas = ({
   const handleMouseDown = (e) => {
     isMouseDownRef.current = true;
     isDraggingElementRef.current = false;
+    dragStartNodeIdRef.current = null;
+    dragStartNodePosRef.current = { x: 0, y: 0 };
+    dragStartSelectedIdsRef.current = [];
+
     const stage = stageRef.current;
     if (!stage) return;
     const relativePos = stage.getRelativePointerPosition();
@@ -196,57 +198,54 @@ const Canvas = ({
     const targetIsStage = target === stage;
 
     if (targetIsStage) {
-      if (selectedTool === TOOLS.DRAW_SECTION) {
-        setIsDrawingSection(true);
-        setDrawStartPos(relativePos);
-        setCurrentRect({
-          x: relativePos.x,
-          y: relativePos.y,
-          width: 0,
-          height: 0,
-          rows: 1,
-          cols: 1,
-        });
-        setTempPreviewText({
-          x: relativePos.x + 5,
-          y: relativePos.y + 5,
-          text: `R:1, C:1`,
-        });
-        onSelectionChange({ elementIds: [], sectionId: null });
-        transformerRef.current?.nodes([]);
-      } else if (selectedTool.startsWith("place-")) {
-        onStageClick(relativePos);
-      } else if (selectedTool === TOOLS.SELECT) {
-        // Start selection box
-        isSelectingWithBox.current = true;
-        selectionBoxStart.current = relativePos;
-        setSelectionBox({
-          x: relativePos.x,
-          y: relativePos.y,
-          width: 0,
-          height: 0,
-          visible: true,
-        });
-        onSelectionChange({ elementIds: [], sectionId: null });
-        transformerRef.current?.nodes([]);
-      }
-    } else {
-      // Clicked on an element
-      if (isDrawingSection) {
-        setIsDrawingSection(false);
-        setDrawStartPos(null);
-        setCurrentRect(null);
-        setTempPreviewText(null);
-      }
+        if (selectedTool === TOOLS.DRAW_SECTION) {
+            // *** RESTORED SECTION DRAWING LOGIC ***
+            setIsDrawingSection(true);
+            setDrawStartPos(relativePos); // Store start position
+            // Initialize preview rectangle state
+            setCurrentRect({
+                x: relativePos.x,
+                y: relativePos.y,
+                width: 0,
+                height: 0,
+                rows: 1, // Initial default estimate
+                cols: 1  // Initial default estimate
+            });
+            // Initialize preview text state
+            setTempPreviewText({
+                x: relativePos.x + 5,
+                y: relativePos.y + 5,
+                text: `R:1, C:1` // Initial text
+            });
+            // Clear any existing selection when starting to draw
+            onSelectionChange({ elementIds: [], sectionId: null });
+            transformerRef.current?.nodes([]);
+            // *** END RESTORED SECTION DRAWING LOGIC ***
+        } else if (selectedTool.startsWith('place-')) {
+            onStageClick(relativePos); // Place element
+        } else if (selectedTool === TOOLS.SELECT) { // Start selection box
+            isSelectingWithBox.current = true;
+            selectionBoxStart.current = relativePos;
+            setSelectionBox({ x: relativePos.x, y: relativePos.y, width: 0, height: 0, visible: true });
+            onSelectionChange({ elementIds: [], sectionId: null }); // Deselect on stage click
+            transformerRef.current?.nodes([]);
+        }
+    } else { // Clicked on an element
+         if (isDrawingSection) { // Cancel drawing section if clicking element
+            setIsDrawingSection(false);
+            setDrawStartPos(null);
+            setCurrentRect(null);
+            setTempPreviewText(null);
+         }
     }
-  };
+ };
   const handleMouseMove = () => {
     const stage = stageRef.current;
     if (!stage || !isMouseDownRef.current) return;
     const pos = stage.getRelativePointerPosition();
     if (!pos) return;
     if (isDrawingSection && drawStartPos) {
-      /* ... update drawing rect ... */
+      /* ... drawing rect ... */
       isDraggingElementRef.current = true;
       const newWidth = Math.abs(pos.x - drawStartPos.x);
       const newHeight = Math.abs(pos.y - drawStartPos.y);
@@ -269,7 +268,7 @@ const Canvas = ({
         text: `R:${rows}, C:${cols}`,
       });
     } else if (isSelectingWithBox.current) {
-      /* ... update selection box ... */
+      /* ... selection box ... */
       isDraggingElementRef.current = true;
       const currentX = pos.x;
       const currentY = pos.y;
@@ -281,6 +280,9 @@ const Canvas = ({
         visible: true,
       });
     }
+    if (isMouseDownRef.current && !isDraggingElementRef.current) {
+      isDraggingElementRef.current = true;
+  }
   };
   const handleMouseUp = () => {
     const wasDrawingSection = isDrawingSection;
@@ -288,111 +290,123 @@ const Canvas = ({
     isMouseDownRef.current = false;
     setIsDrawingSection(false);
     isSelectingWithBox.current = false;
-    if (
-      wasDrawingSection &&
-      currentRect &&
-      currentRect.width > MIN_SIZE &&
-      currentRect.height > MIN_SIZE
-    ) {
-      onStageClick(currentRect);
-    } else if (
-      wasSelectingWithBox &&
-      selectionBox.visible &&
-      selectionBox.width > 5 &&
-      selectionBox.height > 5
-    ) {
-      const stage = stageRef.current;
-      const finalSelectionRect = selectionBox;
-      const elementsToSelect = [];
-      Object.values(shapeRefs.current).forEach((node) => {
-        // Select non-chair elements within the box
-        if (
-          node &&
-          node.attrs.id &&
-          !node.attrs.id.startsWith("chair-") &&
-          !node.attrs.id.startsWith("tchair-")
-        ) {
-          if (isNodeInRect(node, finalSelectionRect, stage)) {
-            elementsToSelect.push(node.attrs.id);
-          }
-        }
-      });
-      onSelectionChange({ elementIds: elementsToSelect, sectionId: null });
+
+    if (wasDrawingSection && currentRect && currentRect.width > MIN_SIZE && currentRect.height > MIN_SIZE) {
+         onStageClick(currentRect);
+    } else if (wasSelectingWithBox && selectionBox.visible && selectionBox.width > 5 && selectionBox.height > 5) {
+        const stage = stageRef.current;
+        const finalSelectionRect = selectionBox;
+        const elementsToSelect = [];
+        // Iterate through ALL potential elements (use refs)
+        Object.values(shapeRefs.current).forEach(node => {
+            if (node && node.attrs.id) { // Check node exists and has ID
+                if (isNodeInRect(node, finalSelectionRect, stage)) {
+                    // Add ID regardless of type (chair or other)
+                    elementsToSelect.push(node.attrs.id);
+                }
+            }
+        });
+        console.log("[Canvas] Selection Box selected IDs (incl chairs):", elementsToSelect);
+        // Update selection state - clear section ID when box selecting
+        onSelectionChange({ elementIds: elementsToSelect, sectionId: null });
     }
-    setDrawStartPos(null);
-    setCurrentRect(null);
-    setTempPreviewText(null);
+
+    setDrawStartPos(null); setCurrentRect(null); setTempPreviewText(null);
     setSelectionBox({ x: 0, y: 0, width: 0, height: 0, visible: false });
-    setTimeout(() => {
-      isDraggingElementRef.current = false;
-    }, 0);
-  };
+    setTimeout(() => { isDraggingElementRef.current = false; }, 0);
+ };
+
   const handleWheel = useCallback(() => {
     /* ... */
   }, []);
-  const handleDragStart = useCallback(
-    (e) => {
-      isDraggingElementRef.current = true;
-      const id = e.target.id();
-      dragStartNodeIdRef.current = id;
-      dragStartPositionsRef.current = {};
-      selectedElementIds.forEach((selectedId) => {
-        const node = shapeRefs.current[selectedId];
-        if (node) {
-          dragStartPositionsRef.current[selectedId] = {
-            x: node.x(),
-            y: node.y(),
-          };
-        }
-      });
-      const elementData = elements.find((el) => el.id === id);
-      if (
-        elementData &&
-        elementData.type !== ELEMENT_TYPES.SECTION_BOUNDARY &&
-        elementData.type !== ELEMENT_TYPES.CHAIR
-      ) {
-        // Don't move chairs to top
-        e.target.moveToTop();
-        transformerRef.current?.moveToTop();
-      }
-    },
-    [selectedElementIds, elements]
-  );
+  const handleDragStart = useCallback((e) => {
+    // isDraggingElementRef is set in handleMouseMove
+    const targetNode = e.target;
+    const id = targetNode.id();
 
-  const handleDragEnd = useCallback(
-    (e) => {
-      const draggedNodeId = dragStartNodeIdRef.current;
-      const node = e.target;
-      const elementId = node.id();
-      if (!draggedNodeId || !selectedElementIds.includes(elementId)) return;
-      const originalElement = elements.find((el) => el.id === elementId);
-      if (!originalElement) return;
-      const startPos = dragStartPositionsRef.current[draggedNodeId] || {
-        x: originalElement.x,
-        y: originalElement.y,
-      };
-      const newPos = node.position();
-      const deltaX = newPos.x - startPos.x;
-      const deltaY = newPos.y - startPos.y;
-      if (Math.abs(deltaX) < 1 && Math.abs(deltaY) < 1) return; // Ignore tiny drags
+    // Only proceed if the drag starts on a currently selected element
+    if (!selectedElementIds.includes(id)) {
+        console.log(`[Canvas] DragStart ignored: Node ${id} is not selected.`);
+        return;
+    }
 
-      if (
-        originalElement.type === ELEMENT_TYPES.SECTION_BOUNDARY &&
-        originalElement.sectionId
-      ) {
-        onSectionDragEnd(originalElement.sectionId, { x: deltaX, y: deltaY });
-      } else if (
-        selectedElementIds.includes(elementId) &&
-        originalElement.type !== ELEMENT_TYPES.CHAIR
-      ) {
-        // Only drag non-chairs
-        onElementDragEnd(elementId, newPos, { x: deltaX, y: deltaY });
-      }
-      dragStartPositionsRef.current = {};
-      dragStartNodeIdRef.current = null;
-    },
-    [elements, selectedElementIds, onElementDragEnd, onSectionDragEnd]
-  );
+    dragStartNodeIdRef.current = id; // Store ID of node initiating drag
+    dragStartNodePosRef.current = { x: targetNode.x(), y: targetNode.y() }; // Store its start position
+    dragStartSelectedIdsRef.current = [...selectedElementIds]; // Store snapshot of selected IDs *at drag start*
+
+    console.log(`[Canvas] DragStart: Initiated on node ID: ${id} at`, dragStartNodePosRef.current);
+    console.log(`[Canvas] DragStart: Stored selected IDs:`, dragStartSelectedIdsRef.current);
+
+    // Lift element logic (optional visual flair)
+    const elementData = elements.find(el => el.id === id);
+     if (elementData && elementData.type !== ELEMENT_TYPES.SECTION_BOUNDARY && elementData.type !== ELEMENT_TYPES.CHAIR) {
+         targetNode.moveToTop();
+         transformerRef.current?.moveToTop();
+     }
+ }, [selectedElementIds, elements, transformerRef]); // Dependencies
+
+ // *** UPDATED handleDragEnd ***
+ const handleDragEnd = useCallback((e) => {
+     const endingNode = e.target;
+     const endingNodeId = endingNode.id();
+     const startedNodeId = dragStartNodeIdRef.current; // ID of the node where drag STARTED
+     const initialSelectedIds = dragStartSelectedIdsRef.current; // IDs selected at START
+
+     console.log(`[Canvas] DragEnd: Triggered on node ID: ${endingNodeId}. Started node ID was: ${startedNodeId}`);
+
+     // *** Only process drag end for the node that INITIATED the drag ***
+     if (!startedNodeId || endingNodeId !== startedNodeId) {
+         console.log(`[Canvas] DragEnd: Ignoring event for node ${endingNodeId} as drag started on ${startedNodeId}`);
+         return;
+     }
+
+     // Ensure the node that started the drag was actually selected at that time
+     if (!initialSelectedIds.includes(startedNodeId)) {
+         console.warn(`DragEnd check failed: Start Node ID ${startedNodeId} was not in initial selection:`, initialSelectedIds);
+         // Clear refs now that the originating drag end is processed
+         dragStartPositionsRef.current = {}; dragStartNodeIdRef.current = null; dragStartSelectedIdsRef.current = [];
+         return;
+     }
+
+     const originalElement = elements.find(el => el.id === startedNodeId);
+     if (!originalElement) {
+         console.warn(`Original element data not found for dragged node ${startedNodeId}`);
+         dragStartPositionsRef.current = {}; dragStartNodeIdRef.current = null; dragStartSelectedIdsRef.current = [];
+         return;
+     }
+
+     const startPos = dragStartNodePosRef.current; // Get the START position of the node where drag initiated
+     const newPos = endingNode.position(); // Get FINAL position of the node where drag initiated
+
+     // Calculate the delta based on the STARTING node's movement
+     const deltaX = newPos.x - startPos.x;
+     const deltaY = newPos.y - startPos.y;
+
+     // Only trigger update if moved significantly
+     if (Math.abs(deltaX) < 1 && Math.abs(deltaY) < 1) {
+         console.log("[Canvas] DragEnd: Minimal movement, ignoring.");
+         dragStartPositionsRef.current = {}; dragStartNodeIdRef.current = null; dragStartSelectedIdsRef.current = [];
+         return;
+     }
+
+     console.log(`[Canvas] DragEnd Delta:`, { deltaX, deltaY }, "for elements:", initialSelectedIds);
+
+     // Pass the calculated DELTA and the list of IDs that were selected AT THE START OF THE DRAG
+     if (originalElement.type === ELEMENT_TYPES.SECTION_BOUNDARY && originalElement.sectionId) {
+         onSectionDragEnd(originalElement.sectionId, { x: deltaX, y: deltaY });
+     } else {
+         // Pass the list of initially selected IDs and the calculated DELTA
+         onElementDragEnd(initialSelectedIds, { x: deltaX, y: deltaY });
+     }
+
+     // Clear refs now that the originating drag end is processed
+     dragStartPositionsRef.current = {};
+     dragStartNodeIdRef.current = null;
+     dragStartSelectedIdsRef.current = [];
+
+ }, [elements, onElementDragEnd, onSectionDragEnd]); // Removed selectedElementIds from deps, uses ref
+
+
 
   const handleInternalTransformEnd = useCallback(() => {
     const transformer = transformerRef.current;
@@ -685,8 +699,8 @@ const Canvas = ({
         default:
           return null;
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       selectedElementIds,
       selectedSectionId,
@@ -810,6 +824,6 @@ const Canvas = ({
       </Stage>
     </div>
   );
-};
+});
 
 export default Canvas;

@@ -487,32 +487,53 @@ export const useSeatingMapState = () => {
   );
 
   // --- Drag/Transform Updates (called by Canvas event handlers) ---
-  const handleElementDragEnd = useCallback(
-    (elementId, newPos, dragDelta) => {
-      const element = elements.find((el) => el.id === elementId);
-      if (!element) return;
+  const handleElementDragEnd = useCallback((draggedElementIds, dragDelta) => {
+    // draggedElementIds is the array of IDs selected at the START of the drag
+    // dragDelta is the {x, y} difference calculated in Canvas based on the initially grabbed node
 
-      if (selectedElementIds.length <= 1 && elementId) {
-        // For single drag, updateElementProperties will handle creating new object and saving
-        updateElementProperties(elementId, { x: newPos.x, y: newPos.y }, true);
-      } else if (selectedElementIds.length > 1 && dragDelta) {
-        let changed = false;
-        // For multi-drag, ensure we map to new objects
-        setElements((prevElements) => {
-          const newElements = prevElements.map((el) => {
-            if (selectedElementIds.includes(el.id)) {
-              changed = true;
-              return { ...el, x: el.x + dragDelta.x, y: el.y + dragDelta.y }; // New object
+    // Ensure we have valid IDs and a delta to apply
+    if (!draggedElementIds || !dragDelta || draggedElementIds.length === 0) {
+        console.warn("handleElementDragEnd called with invalid arguments:", draggedElementIds, dragDelta);
+        return;
+    }
+
+    let changed = false; // Flag to track if any element's position actually changed
+
+    setElements(prevElements => {
+        // Create a new array using map to ensure immutability
+        const newElements = prevElements.map(el => {
+            // Check if this element was part of the group being dragged
+            if (draggedElementIds.includes(el.id)) {
+                // Calculate the new position by applying the delta
+                const newX = el.x + dragDelta.x;
+                const newY = el.y + dragDelta.y;
+
+                // Check if the position actually changed to set the 'changed' flag
+                if (el.x !== newX || el.y !== newY) {
+                    changed = true;
+                }
+
+                // Return a *new* element object with the updated position
+                return { ...el, x: newX, y: newY };
             }
+            // Otherwise, return the element unchanged
             return el;
-          });
-          return newElements;
         });
-        if (changed) saveState();
-      }
-    },
-    [selectedElementIds, updateElementProperties, saveState, elements]
-  );
+        return newElements; // Return the potentially updated array for setElements
+    });
+
+    // Save state only if any element actually moved
+    if (changed) {
+         console.log(`[Hook] Applied drag delta ${JSON.stringify(dragDelta)} to ${draggedElementIds.length} elements.`);
+         // Use setTimeout to ensure state update is processed before saving history
+         setTimeout(saveState, 0);
+    } else {
+        console.log("DragEnd: No positional change detected for selected elements.");
+    }
+
+ }, [elements, saveState]); // Dependencies: 'elements' to map over, 'saveState' to save history
+
+
 
   // src/hooks/useSeatingMapState.js
 
