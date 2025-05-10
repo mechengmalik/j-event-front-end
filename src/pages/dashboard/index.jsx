@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom"; 
 import Sidebar from "../../components/sidebar";
 import Navbar from "../../components/navbar";
 import menuIcon from "../../assets/icons/menu-icon.svg";
@@ -9,7 +9,11 @@ function Dashboard() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1000);
   const sidebarRef = useRef(null);
+const location = useLocation(); // ⬅️ hook to get the current route
 
+
+const hideSidebarRoutes = ["/dashboard/events/seating-map"]; // ⬅️ customize these
+const shouldHideSidebar = hideSidebarRoutes.includes(location.pathname);
   // Handle resize
   useEffect(() => {
     const handleResize = () => {
@@ -44,8 +48,7 @@ function Dashboard() {
   return (
     <>
       <div className="dashboard-wrapper flex w-full h-full py-2 relative">
-        
-        {isMobile && !showSidebar && (
+        {!shouldHideSidebar && isMobile && !showSidebar && (
           <button
             onClick={() => setShowSidebar(true)}
             className="absolute w-8 top-5 left-5 z-50 bg-purple-600 text-white p-2 rounded-md shadow-md"
@@ -54,7 +57,7 @@ function Dashboard() {
           </button>
         )}
 
-        {(showSidebar || !isMobile) && (
+        {!shouldHideSidebar && (showSidebar || !isMobile) && (
           <div
             ref={sidebarRef}
             className={`sidbar-wrapper ${
@@ -63,16 +66,19 @@ function Dashboard() {
                 : "relative w-1/4 max-w-[250px] min-w-[200px]"
             } bg-white shadow-md transition-transform duration-300`}
           >
-            <Sidebar isMobile={isMobile} showSidebar={showSidebar} onClose={() => setShowSidebar(false)} />
+            <Sidebar
+              isMobile={isMobile}
+              showSidebar={showSidebar}
+              onClose={() => setShowSidebar(false)}
+            />
           </div>
         )}
-         <div className="dashboard-main-content flex-1 p-1 overflow-y-auto">
-        <Navbar />
-        <Outlet /> {/* This is where Events, CreateEvent etc will render */}
-      </div>
 
+        <div className="dashboard-main-content flex-1 p-1 overflow-y-auto">
+          <Navbar />
+          <Outlet /> {/* This is where Events, CreateEvent etc will render */}
+        </div>
       </div>
-     
     </>
   );
 }

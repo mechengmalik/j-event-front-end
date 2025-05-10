@@ -14,8 +14,8 @@ export const calculateChairPositions = (sectionData) => {
     colSpacing = DEFAULT_COL_SPACING,
     curve = 0,
     rotation = 0,
+    svgPath= sectionData.svgPath,
     width: sectionWidth, height: sectionHeight,
-    // deletedSeats = [], // No longer using deletedSeats with this approach
   } = sectionData;
 
   if (rows <= 0 || cols <= 0) return [];
@@ -91,6 +91,7 @@ export const calculateChairPositions = (sectionData) => {
         isReserved: false, // Default reservation status
         fill: "#4A5568", // Default chair color
         listening: true, // Chairs should be clickable
+        svgPath: svgPath,
       });
     }
   }

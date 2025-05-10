@@ -1,10 +1,12 @@
 // src/components/SeatingMapBuilder/elements/ChairElement.jsx
 import React from 'react';
-import { Path, Text as KonvaText } from 'react-konva'; // Aliased to avoid conflict if needed
+import { Path, Text } from 'react-konva'; // Aliased to avoid conflict if needed
 import { DEFAULT_CHAIR_SIZE } from '../constants'; // Adjust path if needed
 
 const ChairElement = React.memo(({ elementData, isSelected }) => {
-  const chairPath = "M24.9997 8.33333V20H14.9997V8.33333H24.9997ZM24.9997 5H14.9997C13.1663 5 11.6663 6.5 11.6663 8.33333V23.3333H28.333V8.33333C28.333 6.5 26.833 5 24.9997 5ZM36.6663 16.6667H31.6663V21.6667H36.6663V16.6667ZM8.33301 16.6667H3.33301V21.6667H8.33301V16.6667ZM33.333 25H6.66634V35H9.99967V28.3333H29.9997V35H33.333V25Z";
+  const defaultChairPath = "M24.9997 8.33333V20H14.9997V8.33333H24.9997ZM24.9997 5H14.9997C13.1663 5 11.6663 6.5 11.6663 8.33333V23.3333H28.333V8.33333C28.333 6.5 26.833 5 24.9997 5ZM36.6663 16.6667H31.6663V21.6667H36.6663V16.6667ZM8.33301 16.6667H3.33301V21.6667H8.33301V16.6667ZM33.333 25H6.66634V35H9.99967V28.3333H29.9997V35H33.333V25Z";
+  const chairPath = elementData.svgPath || defaultChairPath;
+
   const visualScale = 0.7; // Visual scale of the SVG path
 
   // The Path is drawn relative to the Group's origin (which is the chair's center due to offsetX/Y on Group)
@@ -37,7 +39,7 @@ const ChairElement = React.memo(({ elementData, isSelected }) => {
         hitStrokeWidth={15 / visualScale}
       />
       {seatNumber && (
-        <KonvaText
+        <Text
           text={seatNumber}
           fontSize={fontSize}
           fill={isSelected || elementData.isReserved ? "#FFFFFF" : "#2D3748"}

@@ -10,7 +10,6 @@ import copyIcon from "../../assets/icons/copy-icon.svg";
 import trashIcon from "../../assets/icons/trash.svg";
 
 function EventCard({ event, onManage, onOverview, onClone, onDelete }) {
-  console.log("🚀 ~ EventCard ~ event:", event);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const menuRef = useRef(null);

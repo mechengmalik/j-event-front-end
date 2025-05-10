@@ -16,7 +16,7 @@ const BoundaryElement = React.memo(({ element, isSelected }) => {
       listening={true} // Boundary must be clickable to select section
       hitStrokeWidth={10} // Make boundary easier to click
       // Make semi-transparent so grid shows through
-      fill="rgba(203, 213, 224, 0.1)" // Very light fill
+      fill="rgba(241, 242, 243, 0.1)" // Very light fill
     />
   );
 });

@@ -8,4 +8,10 @@ export const ELEMENT_TYPES = {
     // Internal
     CHAIR: "chair",
     SECTION_BOUNDARY: "section-boundary",
+    TEXT: "text",
+    FANCY:"fancy",
+    TRADITIONAL:"traditional",
+    COUCH:"couch",
+    DRAW_SECTION: "draw-section"
+
   };

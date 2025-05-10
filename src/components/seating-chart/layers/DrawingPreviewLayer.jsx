@@ -5,7 +5,7 @@ const DrawingPreviewLayer = ({ isDrawing, currentRect, previewText }) => {
   if (!isDrawing) return null;
 
   return (
-    <Layer listening={false}>
+    <Layer listening={true}>
       {currentRect && (
         <Rect
           x={currentRect.x} y={currentRect.y}
