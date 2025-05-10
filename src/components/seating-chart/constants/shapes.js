@@ -6,4 +6,7 @@ export const SHAPES = {
     STAR: "star",
     RING: "ring",
     WEDGE: "wedge",
+    TRADITIONAL: "traditional",
+    FANY: "fancy",
+    COUCH:"couch"
   };

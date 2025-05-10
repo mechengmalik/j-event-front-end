@@ -2,7 +2,7 @@
 import React from 'react';
 import { SHAPES, ELEMENT_TYPES, MIN_SIZE } from './constants'; // Adjust path if needed
 
-const ElementProperties = ({ element, onUpdate, onDelete, onSave }) => {
+const ElementProperties = ({ element, onUpdate, onDelete, onSave, onCopy}) => {
   // Show placeholder if no element or an unsuitable element is selected
   if (!element || element.sectionId || element.type === ELEMENT_TYPES.SECTION_BOUNDARY || element.type === ELEMENT_TYPES.CHAIR) {
        return <p className="text-xs text-gray-500 text-center mt-4">Select an independent table, stage, floor, etc.</p>;
@@ -53,19 +53,12 @@ const ElementProperties = ({ element, onUpdate, onDelete, onSave }) => {
         </label>
       )}
       {/* Color Picker */}
-      {element.type !== ELEMENT_TYPES.FLOOR && (
+      {element.type  && (
            <label className="block text-xs font-medium text-gray-700"> Fill Color
                <input type="color" value={element.fill || "#888888"} onChange={(e) => handleColorChange(e.target.value)}
                    className="mt-1 block w-full h-8 px-1 py-1 border rounded" />
            </label>
        )}
-       {element.type === ELEMENT_TYPES.FLOOR && (
-           <label className="block text-xs font-medium text-gray-700"> Color
-               <input type="color" value={element.stroke || "#4a5568"} onChange={(e) => handleColorChange(e.target.value)}
-                   className="mt-1 block w-full h-8 px-1 py-1 border rounded" />
-           </label>
-       )}
-
       {/* Details Separator */}
       <p className="text-xs font-semibold text-gray-600 pt-2 border-t mt-2">Details:</p>
 
@@ -80,7 +73,6 @@ const ElementProperties = ({ element, onUpdate, onDelete, onSave }) => {
           </label>
        )}
 
-        {/* --- Shape Specific Inputs --- */}
 
         {/* Rect */}
         {element.shape === SHAPES.RECT && (
@@ -153,7 +145,7 @@ const ElementProperties = ({ element, onUpdate, onDelete, onSave }) => {
               )}
 
         {/* Floor Text (Readonly) */}
-        {element.type === ELEMENT_TYPES.FLOOR && (
+        {(element.type === ELEMENT_TYPES.FLOOR || element.type=== ELEMENT_TYPES.TEXT) && (
             <>
                 <label className="block text-xs font-medium text-gray-700"> Label
                     <input
@@ -166,20 +158,8 @@ const ElementProperties = ({ element, onUpdate, onDelete, onSave }) => {
                         title="Edit floor label"
                     />
                 </label>
-                <label className="block text-xs font-medium text-gray-700"> Length
-                   <input type="number" min={MIN_SIZE * 2} step="1" value={element.length?.toFixed(0) || ""}
-                       onChange={(e) => handleChange('length', e.target.value, true)} onBlur={handleBlur}
-                       className="mt-1 w-full px-2 py-1 border rounded text-xs" />
-                </label>
+               
             </>
-        )}
-         {/* Floor Length */}
-         {element.type === ELEMENT_TYPES.FLOOR && (
-            <label className="block text-xs font-medium text-gray-700"> Length
-               <input type="number" min={MIN_SIZE * 2} step="1" value={element.length?.toFixed(0) || ""}
-                   onChange={(e) => handleChange('length', e.target.value, true)} onBlur={handleBlur}
-                   className="mt-1 w-full px-2 py-1 border rounded text-xs" />
-            </label>
         )}
 
         {/* *** Table Chair Inputs *** */}
@@ -210,15 +190,16 @@ const ElementProperties = ({ element, onUpdate, onDelete, onSave }) => {
                 )}
             </>
         )}
-        {/* --- End Table Chair Inputs --- */}
 
-      {/* Delete Button */}
       <button
-        onClick={() => onDelete()} // onDelete handles context (section vs elements)
+        onClick={() => onDelete()} 
         className="w-full mt-2 p-2 rounded border text-xs bg-red-100 border-red-300 text-red-700 hover:bg-red-200"
       >
         Delete Element
       </button>
+      <div className="sidebar">
+        <button onClick={onCopy}>Copy</button>
+    </div>
     </div>
   );
 };

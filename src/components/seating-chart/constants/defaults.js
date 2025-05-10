@@ -24,12 +24,13 @@ export const DEFAULT_ARC_INNER_RADIUS = 40;
 export const DEFAULT_ARC_OUTER_RADIUS = 70;
 export const DEFAULT_ARC_ANGLE = 120;
 
+export const DEFAULT_COLOR = "#4287f5"; 
 // Default Configs for Placement (Used by PlacementConfigForms)
 export const DEFAULT_CONFIGS = {
-    [ELEMENT_TYPES.SEAT]: { /* ... */ },
+    [ELEMENT_TYPES.SEAT]: { },
     [ELEMENT_TYPES.TABLE]: {
-        shape: SHAPES.RECT, width: 120, height: 70, fill: "#a0aec0",
-        cornerRadius: 8, stroke: "#4A5568", strokeWidth: 1,
+        shape: SHAPES.RECT, width: 120, height: 70, fill: "#000000",
+        cornerRadius: 8, stroke: "#4A5568", strokeWidth: 1,color:"#4A5568",
         // Add defaults for other shapes used by tables
         radius: DEFAULT_CIRCLE_RADIUS, // For Circle/Polygon/Star initial state
         sides: DEFAULT_POLYGON_SIDES, // For Polygon
@@ -41,15 +42,15 @@ export const DEFAULT_CONFIGS = {
      },
     [ELEMENT_TYPES.STAGE]: {
         shape: SHAPES.RECT, width: 250, height: 120, fill: "#e2e8f0",
-        cornerRadius: 4, stroke: "#4A5568", strokeWidth: 1,
+        cornerRadius: 4, stroke: "#4A5568", strokeWidth: 1,color:"#4A5568",
         // Add defaults for other shapes used by stages
         radius: DEFAULT_CIRCLE_RADIUS, sides: DEFAULT_POLYGON_SIDES, numPoints: DEFAULT_STAR_POINTS,
         innerRadius: DEFAULT_STAR_RADIUS * DEFAULT_STAR_INNER_RADIUS_RATIO,
         outerRadius: DEFAULT_RING_OUTER_RADIUS, angle: DEFAULT_WEDGE_ANGLE,
     },
-    [ELEMENT_TYPES.FLOOR]: { /* ... */ },
-    [ELEMENT_TYPES.ENTRANCE]: { /* ... */ },
-    [ELEMENT_TYPES.EXIT]: { /* ... */ },
+    [ELEMENT_TYPES.FLOOR]: { stroke: "#4A5568", strokeWidth: 1,color:"#4A5568" },
+    [ELEMENT_TYPES.ENTRANCE]: { stroke: "#4A5568", strokeWidth: 1,color:"#4A5568" },
+    [ELEMENT_TYPES.EXIT]: { stroke: "#4A5568", strokeWidth: 1,color:"#4A5568" },
 };
 
 // Helper to get default props for *creating* an element

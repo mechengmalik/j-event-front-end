@@ -27,10 +27,10 @@ function App() {
           <Route path="create-event" element={<CreateEvent />} />
           <Route path="events/:eventId" element={<EventDetails />} />
           {/* <Route path="events/:eventId/edit" element={<EditEvent />} /> */}
-          {/* <Route path="events/seating-map" element={<EventSeatMap />} /> */}
+          <Route path="events/seating-map" element={<SeatingMapBuilder />} />
 
         </Route>
-        <Route path="dashboard/events/seating-map" element={<SeatingMapBuilder />} />
+        {/* <Route path="dashboard/events/seating-map" element={<SeatingMapBuilder />} /> */}
 
 
 

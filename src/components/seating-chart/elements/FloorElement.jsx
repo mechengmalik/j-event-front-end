@@ -53,7 +53,7 @@ const FloorElement = React.memo(({ element, isSelected, onTextDblClick }) => {
                 width={backgroundWidth} height={textHeight}
                 padding={textPadding}
                 align="center" verticalAlign="middle"
-                listening={false} // Text itself doesn't need listeners if Group handles dblclick
+                listening={true} // Text itself doesn't need listeners if Group handles dblclick
             />
         </Group>
         </>
