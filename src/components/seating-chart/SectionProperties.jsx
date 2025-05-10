@@ -1,7 +1,7 @@
 // src/components/SeatingMapBuilder/SectionProperties.jsx
 import React from 'react';
 import { DEFAULT_ROW_SPACING, DEFAULT_COL_SPACING } from './constants'; // Adjust path if needed
-import increaseIcon from "../../assets/icons/increase.svg"
+import increaseIcon from "../../assets/icons/Increase.svg"
 import decreaseIcon from "../../assets/icons/decrease.svg"
 
 const SectionProperties = ({ section, onUpdate, onDelete, onSave, onCopy }) => {
