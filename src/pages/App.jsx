@@ -23,7 +23,8 @@ function App() {
         {/* <Route path="/about" element={<About />} /> */}
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/event/:eventId" element={<EventLandingPage />} />
+        {/* <Route path="/event/:eventId" element={<EventLandingPage />} /> */}
+        <Route path="/event/landing-page" element={<EventLandingPage />} />
 
         {/* Nested Dashboard Routes */}
         <Route path="/dashboard" element={<Dashboard />}>
