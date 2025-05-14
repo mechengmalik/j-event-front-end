@@ -479,7 +479,7 @@ const SeatingMapBuilder = () => {
   return (
     <div className="flex flex-col p-4 ">
       <div className="flex justify-between items-center">
-        <div className="flex text-3xl font-bold justify-start items-center gap-4 p-4 pl-5">
+        <div className="flex text-3xl font-bold justify-start items-center gap-4 pl-5">
           <button onClick={() => navigate(-1)}>
             <img src={backArrow} alt="Back" />
           </button>

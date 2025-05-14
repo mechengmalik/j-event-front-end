@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./date-picker.css";
-import calenderIcon from "../../../../assets/icons/calender.svg";
+import calenderIcon from "../../../../assets/icons/b-calender.svg";
 
 const CommonDatePicker = ({
   label = "",
@@ -58,16 +58,13 @@ const CommonDatePicker = ({
           disabled={readOnly}
         />
         {/* Calendar Icon */}
-        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
-          <img
-            src={calenderIcon}
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.8}
-            stroke="black"
-            className="w-5 h-5"
-          />
-        </div>
+        <div className=" flex justify-center items-center absolute top-0 right-0 border-l border-black/10 h-full">
+                  <div
+                    className="items-center content-center p-4 items-center pointer-events-none"
+                  >
+                    <img src={calenderIcon} alt="time" />
+                  </div>
+                </div>
       </div>
 
       {error && <p className="dateFieldError text-red-500">{error}</p>}

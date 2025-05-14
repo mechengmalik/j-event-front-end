@@ -1,14 +1,15 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import "./create-event.css";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import "./event-ticket.css";
 import backArrow from "../../../assets/icons/back-arrow.svg";
 import Breadcrumbs from "../../../components/breadcrumbs";
-import CreateEventForm from "../../../components/create-event-form";
+import TicketList from "../../../components/event-ticket";
+import plusIcon from "../../../assets/icons/plus-icon.svg";
 
-function CreateEvent() {
+function EventTickets() {
   const navigate = useNavigate();
+  const { eventId } = useParams();
 
-  
   // const handleFormSubmit = async (data) => {
   //   try {
   //     // Send data to your backend
@@ -42,22 +43,32 @@ function CreateEvent() {
   return (
     <div className="flex flex-col overflow-y-hidden justify-start px-6 sm:px-16 lg:px-12 ">
       <div className="flex flex-col justify-between">
-        <div className="flex text-3xl font-bold justify-start items-center gap-4 pl-5">
-          <button onClick={() => navigate(-1)}>
-            <img src={backArrow} alt="Back" />
-          </button>
-          Create Event
+        <div className="tickets-heading w-full flex justify-between items-center ">
+          <div className="flex text-3xl font-bold justify-start items-center gap-4 pl-5">
+            <button onClick={() => navigate(-1)}>
+              <img src={backArrow} alt="Back" />
+            </button>
+            Tickets
+          </div>
+          <div className="create-tickets-wrapper">
+            <button className="create-tickets-btn flex gap-2 bg-regal-purple hover:bg-purple-500 text-white py-4 px-8">
+              <img src={plusIcon} alt="plus icon" />
+              <Link to={`/dashboard/events/${eventId}/tickets/create`}>
+                Create
+              </Link>
+            </button>
+          </div>
         </div>
 
-        {/* Breadcrumb */}
-        <div className="text-base flex items-center gap-2 pt-4 pb-8">
+        <div className="text-base flex items-center gap-2 pt-4 pb-4">
           <Breadcrumbs />
         </div>
         <hr className="flex-grow border-t border-black/10 pb-8" />
       </div>
-      <CreateEventForm />
+
+      <TicketList />
     </div>
   );
 }
 
-export default CreateEvent;
+export default EventTickets;

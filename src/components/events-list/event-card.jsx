@@ -119,11 +119,6 @@ function EventCard({ event, onManage, onOverview, onClone, onDelete }) {
           {event.date}
         </p>
 
-        <p className="event-tables flex items-center gap-2 text-sm font-light tracking-wider text-regal-black pb-2">
-          <img className="table-icon" src={table} alt="table" />
-          {event.table} tables
-        </p>
-
         <span className="border-line"></span>
 
         <p className="event-description text-sm text-regal-black pt-2">

@@ -9,6 +9,8 @@ const breadcrumbNameMap = {
   "sign-in": "Sign In",
   "sign-up": "Sign Up",
   about: "About",
+  tickets: "Tickets",
+  create: "Create Ticket",  // Changed from "Create" to "Create Ticket"
 };
 
 export default function Breadcrumbs() {
@@ -16,14 +18,23 @@ export default function Breadcrumbs() {
   const pathnames = location.pathname.split("/").filter((x) => x);
 
   return (
-    <div className="text-base font-light flex items-center gap-2 pt-4 pb-8">
+    <div className="text-base font-light flex items-center gap-2 pt-4">
       {pathnames.map((value, index) => {
         const to = `/${pathnames.slice(0, index + 1).join("/")}`;
         const isLast = index === pathnames.length - 1;
         const isEventId = /^\d+$/.test(value);
-        const label = isEventId
-          ? "Event Details"
-          : breadcrumbNameMap[value] || decodeURIComponent(value);
+        
+        // Determine the label based on path context
+        let label;
+        
+        if (isEventId) {
+          label = "Event Details";
+        } else if (value === "create" && pathnames.includes("tickets")) {
+          // Special case for creating tickets
+          label = "Create Ticket";
+        } else {
+          label = breadcrumbNameMap[value] || decodeURIComponent(value);
+        }
 
         return (
           <span key={to} className="flex items-center gap-2">
