@@ -16,6 +16,7 @@ import GoogleMapsProvider from "../../../../components/location-venue/googleMapP
 function EventLandingPage() {
   // Instead of just a string, we'll use an object with coordinates
   const [location, setLocation] = useState({
+    
     address: "Jabal Al Lweibdeh, Amman, Jordan",
     lat: 31.9558443,
     lng: 35.9279374,
