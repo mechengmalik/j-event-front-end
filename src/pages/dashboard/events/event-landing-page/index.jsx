@@ -43,13 +43,13 @@ function EventLandingPage() {
 
             {/* Gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent">
-              <div className="flex flex-col justify-between h-full px-4 sm:px-8 py-6 sm:py-8 justify-end">
+              <div className="flex flex-col justify-between h-full px-30 sm:px-30 py-6 sm:py-8 justify-end">
                 {/* Event Info */}
                 <div className="flex flex-col justify-between items-start mt-6">
-                  <h2 className="text-2xl sm:text-3xl font-bold text-white p-2">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white py-2">
                     Saudi Founding Day
                   </h2>
-                  <div className="flex flex-wrap items-center text-sm sm:text-base font-light text-white gap-4 p-2">
+                  <div className="flex flex-wrap items-center text-sm sm:text-base font-light text-white gap-4 py-2">
                     <span className="flex gap-2 items-center">
                       <img src={calender} alt="" className="w-4 h-4" />
                       13 Feb - 14 Feb
@@ -63,7 +63,7 @@ function EventLandingPage() {
                       Riyadh
                     </span>
                   </div>
-                  <div className="flex flex-wrap gap-2 text-xs text-white/80 p-2">
+                  <div className="flex flex-wrap gap-2 text-xs text-white/80 py-2">
                     <span>Culture</span>
                     <span>Heritage</span>
                     <span>History</span>

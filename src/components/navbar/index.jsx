@@ -40,7 +40,7 @@ function Navbar({ homePage, gradient }) {
               <div className={`hidden md:flex font-normal gap-8 items-center ${gradient? "text-white":"text-balck" }`}>
                 <Link to="/">Home</Link>
                 <Link to="/dashboard/events">Events</Link>
-                <Link to="/about">About Jevent</Link>
+                <Link to="/event/landing-page">About Jevent</Link>
                 <div className="p-[1px] bg-gradient-to-l from-[#8354A3] to-[#00C2D1]">
                   <Link
                     className={`flex gap-2 items-center py-4 px-4 ${gradient? "bg-black text-white":"bg-white text-black"}`}
