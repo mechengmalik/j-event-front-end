@@ -18,10 +18,10 @@
 
 .datePickerInput {
   border: 1px solid #C8C8C8;
-  padding: 8px 20px;
+  padding: 0.5rem 1rem;
   font-size: .87rem;
   width: 100%;
-  min-height: 3.5rem;
+  height: 3.8rem;
   cursor: pointer;
   transition: all 0.1s ease-in-out;
 
@@ -92,4 +92,49 @@
     outline: none;
     box-shadow: 0 0 0 2px #c084fc;
   }
-  
+  .react-time-picker__inputGroup{
+    text-align: left !important;
+  }
+  .react-time-picker__input {
+  width: 2rem;
+  }
+.react-time-picker__wrapper{
+ border: none !important;
+}
+
+.custom-react-time-picker .react-time-picker__input {
+  text-align: left !important; /* Align text to the left */
+  padding-left: 8px !important; /* Add left padding */
+  /* width: 100%; */
+}
+.react-time-picker__clock {
+  display: none !important;
+}
+.react-time-picker__inputGroup__minute{
+  text-align: left;
+    margin-left: 01px !important;
+    padding-left:0 !important ;
+
+  /* width:1.5rem !important */
+}
+.react-time-picker__inputGroup__hour {
+  text-align: left;
+  margin-left: 01px !important;
+    padding-left: 0 !important;
+
+  /* width:20px !important */
+}
+
+.react-time-picker__inputGroup input:focus {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: white !important;
+}
+
+/* Remove red background when invalid */
+.react-time-picker__inputGroup__input:invalid {
+  box-shadow: none !important;
+  background-color: white !important;
+  outline: none !important;
+}

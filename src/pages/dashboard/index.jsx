@@ -64,7 +64,7 @@ const shouldHideSidebar = hideSidebarRoutes.includes(location.pathname);
               isMobile
                 ? "fixed top-0 left-0 w-2/3 sm:w-1/3 md:w-1/4 z-40"
                 : "relative w-1/4 max-w-[250px] min-w-[200px]"
-            } bg-white shadow-md transition-transform duration-300`}
+            } bg-white transition-transform duration-300`}
           >
             <Sidebar
               isMobile={isMobile}

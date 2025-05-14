@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import backArrow from "../../../../assets/icons/back-arrow.svg";
 import Breadcrumbs from "../../../../components/breadcrumbs";
 import eventMarker from "../../../../assets/icons/event-marker.svg";
@@ -13,6 +13,7 @@ import previewIcon from "../../../../assets/icons/preview.svg";
 
 function EventDetails() {
   const navigate = useNavigate();
+  const { eventId } = useParams();
 
   // const handleViewSeatMap = () => {
   //   navigate(`../events/seating-map`);
@@ -23,7 +24,7 @@ function EventDetails() {
     <div className="flex flex-col overflow-y-hidden justify-start px-4 sm:px-6 lg:px-12">
       <div className="flex flex-col justify-between">
         {/* Header + Breadcrumb */}
-        <div className="flex flex-wrap text-2xl sm:text-3xl font-bold justify-start items-center gap-4 p-4 pl-5">
+        <div className="flex flex-wrap text-2xl sm:text-3xl font-bold justify-start items-center gap-4  pl-5">
           <button onClick={() => navigate(-1)}>
             <img
               src={backArrow}
@@ -35,7 +36,10 @@ function EventDetails() {
         </div>
 
         <Breadcrumbs />
-        <hr className="flex-grow border-t border-black/10 pb-6" />
+        <div className="py-12">
+
+        <hr className="flex-grow border-t border-black/10 " />
+        </div>
 
         {/* Event Card */}
         <div className="event-card">
@@ -76,17 +80,19 @@ function EventDetails() {
                     // onClick={handleViewSeatMap}
                     className="border border-white px-4 py-2 text-base sm:h-[56px] w-full sm:w-[202px]"
                   >
-                    
                     <span className="flex justify-center items-center gap-2">
                       <img src={seatIcon} alt="seat" className="w-4 h-4" />
-                      <Link to={{pathname: "../events/seating-map"}}>View Seat Map</Link>
-
+                      <Link to={{ pathname: "../events/seating-map" }}>
+                        View Seat Map
+                      </Link>
                     </span>
                   </button>
                   <button className="border border-white px-4 py-2 text-base sm:h-[56px] w-full sm:w-[202px]">
                     <span className="flex justify-center items-center gap-2">
                       <img src={starIcon} alt="star" className="w-4 h-4" />
-                      View Tickets
+                      <Link to={`/dashboard/events/${eventId}/tickets`}>
+                        View Tickets
+                      </Link>
                     </span>
                   </button>
                 </div>

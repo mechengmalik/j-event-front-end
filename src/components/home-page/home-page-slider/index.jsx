@@ -101,7 +101,7 @@ function HomePageSlider() {
   const NextArrow = ({ onClick }) => (
     <div
       onClick={onClick}
-      className="absolute top-1/2 left-2 z-10 transform -translate-y-1/2 text-purple-700 p-2 rounded-full shadow cursor-pointer"
+      className="absolute top-1/2 left-2 z-10 transform -translate-y-1/2 text-purple-700 p-2 rounded-full w cursor-pointer"
     >
       <img src={leftArrow} alt="left arrow" />
     </div>

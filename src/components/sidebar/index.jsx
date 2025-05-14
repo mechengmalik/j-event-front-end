@@ -32,7 +32,7 @@ function Sidebar({isMobile, showSidebar, onClose }) {
 
   return (
     <div className="sidebar-container-parent">
-      <div className="sidebar-container fixed z-40 w-2/3 sm:w-1/3 md:w-1/4 max-w-[250px] min-w-[200px] bg-white h-full">
+      <div className="sidebar-container fixed z-40 w-2/3 sm:w-1/3 md:w-1/4 max-w-[250px] border-r border-black/10 min-w-[200px] bg-white h-full">
         <div className="flex items-center justify-between px-4 py-3">
           <img className="logo w-26" src={Logo} alt="Logo" />
           {isMobile && showSidebar && (

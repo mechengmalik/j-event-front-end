@@ -1,5 +1,6 @@
 import React from "react";
 import homeBannerVideo from "../../assets/images/home-page-banner.mp4";
+import decoration from "../../assets/icons/decoration-logo.svg";
 import Navbar from "../../components/navbar/index";
 import HomePageSlider from "../../components/home-page/home-page-slider";
 import LocationEvents from "../../components/home-page/user-location-event-slider";
@@ -26,7 +27,7 @@ function Home() {
         </video>
 
         <div className="relative z-10">
-          <Navbar homePage={true} />
+          <Navbar homePage={true} gradient={true} />
           <HomeBanner />
         </div>
       </div>
@@ -41,13 +42,24 @@ function Home() {
         <LocationEvents />
       </div>
 
-      <div className="h-[6rem] sm:h-[10rem] md:h-[13rem]"></div>
+      <div className="h-[6rem] sm:h-[9rem] md:h-[12rem]"></div>
 
       <CircleCards />
 
-      <div className="h-[6rem]"></div>
+      <div className="h-[6rem] sm:h-[9rem] md:h-[12rem]"></div>
+      <div className="pl-27 pr-20 ">
+        <div className="flex flex-col text-left gap-4 pb-10">
+          <div>
+            <img src={decoration} alt="decoration" />
+          </div>
+          <h3 className="text-2xl sm:text-3xl font-bold text-black">
+            Events in <span className="text-[#8354A3]">Amman</span>
+          </h3>
+        </div>
 
-      <EventsCards />
+        <EventsCards />
+      </div>
+
       <Footer />
     </div>
   );

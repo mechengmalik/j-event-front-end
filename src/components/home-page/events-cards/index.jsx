@@ -1,68 +1,117 @@
 import React from "react";
-import decoration from "../../../assets/icons/decoration-logo.svg";
-import homePage from "../../../assets/icons/home-page-banner.svg"; // Replace with real image source
-import dateIcon from "../../../assets/icons/date.svg"; // Replace with real icon
+import homeBage from "../../../assets/icons/home-page-banner.svg";
+import timeIcon from "../../../assets/icons/time.svg";
+import calenderIcon from "../../../assets/icons/b-calender.svg";
+import ryalIcon from "../../../assets/icons/ryal.svg";
 
-const eventsData = [
-  { id: 1, title: "Art Festival 2025", date: "March 27", image: homePage },
-  { id: 2, title: "Tech Conference Amman", date: "April 10", image: homePage },
-  { id: 3, title: "Music Night", date: "April 15", image: homePage },
-  { id: 4, title: "Food Carnival", date: "May 2", image: homePage },
-  { id: 5, title: "Startup Expo", date: "May 10", image: homePage },
-  { id: 6, title: "Film Screening Night", date: "May 18", image: homePage },
-  { id: 7, title: "Photography Meetup", date: "May 25", image: homePage },
-  { id: 8, title: "Cultural Parade", date: "June 1", image: homePage },
-];
+const EventsGrid = ({ events }) => {
+  // If no events are provided, use placeholder data
+  const eventData = events || [
+    {
+      id: 1,
+      title: "KSA vestival caravan",
+      image: "/event-image-1.jpg",
+      time: "8:00 pm",
+      date: "22/02/2023",
+      location: "Jadda",
+      price: 9.99,
+    },
+    {
+      id: 2,
+      title: "KSA vestival caravan",
+      image: "/event-image-2.jpg",
+      time: "8:00 pm",
+      date: "22/02/2023",
+      location: "Jadda",
+      price: 9.99,
+    },
+    {
+      id: 3,
+      title: "KSA vestival caravan",
+      image: "/event-image-3.jpg",
+      time: "8:00 pm",
+      date: "22/02/2023",
+      location: "Jadda",
+      price: 9.99,
+    },
+    {
+      id: 4,
+      title: "KSA vestival caravan",
+      image: "/event-image-4.jpg",
+      time: "8:00 pm",
+      date: "22/02/2023",
+      location: "Jadda",
+      price: 9.99,
+    },
+    {
+      id: 5,
+      title: "KSA vestival caravan",
+      image: "/event-image-5.jpg",
+      time: "8:00 pm",
+      date: "22/02/2023",
+      location: "Jadda",
+      price: 9.99,
+    },
+    {
+      id: 6,
+      title: "KSA vestival caravan",
+      image: "/event-image-6.jpg",
+      time: "8:00 pm",
+      date: "22/02/2023",
+      location: "Jadda",
+      price: 9.99,
+    },
+  ];
 
-function EventsCards() {
-  return (
-    <div className="w-full py-12 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32">
-      {/* Heading */}
-      <div className="flex flex-col text-left gap-4 pb-10">
-        <div>
-          <img src={decoration} alt="decoration" />
+  const EventCard = ({ event }) => {
+    return (
+      <div className="max-w-[270px] p-4 w-full bg-white rounded-lg overflow-hidden shadow-md border border-black/10 justify-between flex flex-col">
+        <div className="h-40 overflow-hidden">
+          <img
+            src={homeBage}
+            alt={event.title}
+            className="w-full h-full object-cover rounded"
+          />
         </div>
-        <h3 className="text-2xl sm:text-3xl font-bold text-black">
-          Events in <span className="text-[#8354A3]">Amman</span>
-        </h3>
-      </div>
-
-      {/* Events Grid */}
-      <div className="grid gap-6 grid-cols-[repeat(auto-fit,_minmax(270px,_1fr))] justify-center">
-        {eventsData.map((event) => (
-          <div
-            key={event.id}
-            className="w-full max-w-[270px] bg-[#F8F8F8] border border-gray-200 shadow-sm rounded-md overflow-hidden flex flex-col transition hover:shadow-md"
-          >
-            <img
-              src={event.image}
-              alt={event.title}
-              className="w-full h-40 object-cover"
-            />
-            <div className="p-4 flex flex-col justify-between h-full">
-              <h4 className="text-base font-semibold text-black mb-2 text-left line-clamp-2">
-                {event.title}
-              </h4>
-              <div className="flex items-center text-sm text-gray-600 gap-2 mb-4">
-                <img src={dateIcon} alt="calendar" className="w-4 h-4" />
-                <span>{event.date}</span>
-              </div>
-              <button className="mt-auto border border-[#8354A3] text-[#8354A3] rounded-md py-2 text-sm font-semibold hover:bg-[#f9f1fc] transition">
-                Show Details
-              </button>
+        <div className=" flex-1 flex flex-col bg-white justify-between">
+          <h3 className="text-lg font-bold text-left pt-4">{event.title}</h3>
+          <div className="flex flex-col justify-between py-4 gap-2">
+            <div className="flex justify-start font-normal items-center gap-2 ">
+              <span className="text-base">
+                Start from : {""}
+                {event.price}
+              </span>
+              <img src={ryalIcon} alt="" />
+            </div>
+            <div className="flex justify-start items-center gap-2">
+              <img src={calenderIcon} alt="" />
+              <span className="text-base font-normal">{event.date}</span>
+            </div>
+            <div className="flex justify-start items-center gap-2">
+              <img src={timeIcon} alt="" />
+              <span className="text-base font-normal">{event.time}</span>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+        {/* <div  className="px-8  py-4 text-[#8354A3] border border-[#8354A3] px-4 py-2 rounded-md text-center text-base font-medium"> */}
 
-      {/* Show More Button */}
-      <div className="flex justify-center mt-10">
-        <button className="text-[#8354A3] font-semibold hover:opacity-80 transition text-sm sm:text-base">
-          Show More
+        <button  className="px-8  py-4 text-[#8354A3] border border-[#8354A3] px-4 py-2 rounded-md text-center text-base font-medium">
+          See Details
         </button>
+        </div>
+      // </div>
+    );
+  };
+
+  return (
+    <div className="event-card-container">
+      <div className="flex flex-wrap gap-6">
+        {eventData.map((event) => (
+          <EventCard key={event.id} event={event} />
+        ))}
       </div>
     </div>
   );
-}
+};
 
-export default EventsCards;
+export default EventsGrid;

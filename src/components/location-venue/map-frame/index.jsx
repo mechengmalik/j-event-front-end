@@ -3,7 +3,7 @@ import { GoogleMap, Marker } from "@react-google-maps/api";
 
 const mapContainerStyle = {
   width: "100%",
-  height: "300px",
+  height: "37.5rem",
 };
 
 const defaultCenter = {
@@ -13,7 +13,7 @@ const defaultCenter = {
 
 const MapDisplay = ({ location }) => {
   return (
-    <div className="mt-4">
+    <div className="mt-4 ">
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={14}

@@ -43,7 +43,7 @@ const CustomSelectInput = ({
         classNames={{
           control: () =>
             twMerge(
-              "w-full border text-sm py-3",
+              "w-full text-sm py-2",
               error && "border-red-500 ring-red-200"
             ),
           menu: () => "z-10",
@@ -78,6 +78,17 @@ const CustomSelectInput = ({
               backgroundColor: "#D03A2A",
               color: "white",
             },
+          }),
+          indicatorSeparator: (base) => ({
+            ...base,
+            display: "none",
+          }),
+          dropdownIndicator: (base, state) => ({
+            ...base,
+            color: "black", 
+            padding: "8px", 
+            transition: "all .2s ease",
+            transform: state.isFocused ? "rotate(180deg)" : null,
           }),
         }}
       />
