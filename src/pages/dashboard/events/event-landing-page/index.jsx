@@ -8,8 +8,8 @@ import calender from "../../../../assets/icons/calender.svg";
 import homeoage from "../../../../assets/icons/home-page-banner.svg";
 import MapDisplay from "../../../../components/location-venue/map-frame";
 import EventCards from "../../../../components/home-page/events-cards";
+import purpleRect from "../../../../assets/icons/purple-rect.svg";
 import whiteRect from "../../../../assets/icons/rectangle-white.svg";
-import purpleRect from "../../../../assets/icons/rectangle-purple.svg";
 import ryalIcon from "../../../../assets/icons/ryal.svg";
 import GoogleMapsProvider from "../../../../components/location-venue/googleMapProvider";
 
