@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../../../../components/navbar";
-import Breadcrumbs from "../../../../components/breadcrumbs";
-import eventMarker from "../../../../assets/icons/event-marker.svg";
-import eventType from "../../../../assets/icons/event-location-type.svg";
-import calender from "../../../../assets/icons/calender.svg";
-import homeoage from "../../../../assets/icons/home-page-banner.svg";
-import MapDisplay from "../../../../components/location-venue/map-frame";
-import EventCards from "../../../../components/home-page/events-cards";
-import purpleRect from "../../../../assets/icons/purple-rect.svg";
-import whiteRect from "../../../../assets/icons/rectangle-white.svg";
-import ryalIcon from "../../../../assets/icons/ryal.svg";
-import GoogleMapsProvider from "../../../../components/location-venue/googleMapProvider";
+import Navbar from "../../components/navbar";
+import eventMarker from "../../assets/icons/event-marker.svg";
+import eventType from "../../assets/icons/event-location-type.svg";
+import calender from "../../assets/icons/calender.svg";
+import homeoage from "../../assets/icons/home-page-banner.svg";
+import MapDisplay from "../../components/location-venue/map-frame";
+import EventCards from "../../components/home-page/events-cards";
+import purpleRect from "../../assets/icons/purple-rect.svg";
+import whiteRect from "../../assets/icons/rectangle-white.svg";
+import ryalIcon from "../../assets/icons/ryal.svg";
+import GoogleMapsProvider from "../../components/location-venue/googleMapProvider";
 
 function EventLandingPage() {
   // Instead of just a string, we'll use an object with coordinates

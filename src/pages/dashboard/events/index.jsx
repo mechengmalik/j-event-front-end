@@ -27,7 +27,7 @@ function Events() {
           <div className="create-tickets-wrapper">
             <button className="create-tickets-btn flex gap-2 bg-regal-purple hover:bg-purple-500 text-white py-4 px-8">
               <img src={plusIcon} alt="plus icon" />
-              <Link to={`../create-event`}>
+              <Link to={`/dashboard/create-event`}>
                 Create
               </Link>
             </button>

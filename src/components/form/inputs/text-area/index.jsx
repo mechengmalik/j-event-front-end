@@ -16,7 +16,7 @@ const TextareaField = ({
       </label>
       <textarea
         {...register(name)}
-        className="block w-full border border-[#C8C8C8] px-4 py-4 h-[204px] text-sm"
+        className="block w-full border border-[#C8C8C8] rounded-lg px-4 py-4 h-[204px] text-sm"
         placeholder={placeholder}
         rows={rows}
       />

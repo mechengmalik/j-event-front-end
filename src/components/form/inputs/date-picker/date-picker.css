@@ -18,10 +18,11 @@
 
 .datePickerInput {
   border: 1px solid #C8C8C8;
-  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  padding: 0rem 1rem;
   font-size: .87rem;
   width: 100%;
-  height: 3.8rem;
+  height: 56px;
   cursor: pointer;
   transition: all 0.1s ease-in-out;
 
@@ -44,6 +45,8 @@
 .react-datepicker__input-container input {
   display: block;
   width: 100%;
+  height: 56px;
+  
 }
 
 @keyframes slide-calendar-down {
@@ -109,6 +112,9 @@
 }
 .react-time-picker__clock {
   display: none !important;
+}
+.react-time-picker__inputGroup {
+  height: 56px !important;
 }
 .react-time-picker__inputGroup__minute{
   text-align: left;

@@ -13,7 +13,8 @@ import CreateTicket from "./dashboard/event-ticket/create-ticket";
 // import EventSeatMap from "./dashboard/event-seat-map";
 import "../pages/App.css";
 import CreateEventForm from "../components/create-event-form";
-import EventLandingPage from "./dashboard/events/event-landing-page";
+import EventLandingPage from "./event-landing-page";
+import EventsPage from "./events-page";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         {/* <Route path="/event/:eventId" element={<EventLandingPage />} /> */}
         <Route path="/event/landing-page" element={<EventLandingPage />} />
+        <Route path="/events/" element={<EventsPage />} />
 
         {/* Nested Dashboard Routes */}
         <Route path="/dashboard" element={<Dashboard />}>
@@ -42,7 +44,7 @@ function App() {
           {/* <Route path="events/:eventId/edit" element={<EditEvent />} /> */}
           <Route path="events/seating-map" element={<SeatingMapBuilder />} />
         </Route>
-        {/* <Route path="*" element={<Navigate to="/" />} /> */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </div>
   );

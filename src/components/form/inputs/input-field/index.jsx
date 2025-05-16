@@ -17,7 +17,7 @@ const InputField = ({
       <input
         {...register(name)}
         type={type}
-        className="block w-full border border-[#C8C8C8] px-4 py-4 text-sm rounded"
+        className="block w-full border border-[#C8C8C8] px-4 py-4 text-sm rounded-lg"
         placeholder={placeholder}
       />
       {error && <p className="text-red-500 text-sm">{error}</p>}
