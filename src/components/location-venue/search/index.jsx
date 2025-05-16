@@ -3,7 +3,7 @@ import { Autocomplete } from "@react-google-maps/api";
 
 // const libraries = ["places"];
 
-const PlaceSearchInput = ({ onPlaceSelect, register, error }) => {
+const PlaceSearchInput = ({ onPlaceSelect, register, error, required }) => {
   const autocompleteRef = useRef(null);
 
   const onLoad = (autocompleteInstance) => {
@@ -46,8 +46,8 @@ const PlaceSearchInput = ({ onPlaceSelect, register, error }) => {
 
   return (
     <div>
-      <label className="text-left block text-base font-medium pt-4 pb-2">
-        <span className="text-red-500">* </span> Location
+      <label className={`text-left block text-base font-medium ${required &&("pb-2 pt-4")}`}>
+        <span className="text-red-500">{required &&("*")}</span> Location
       </label>
 
       <Autocomplete
@@ -61,7 +61,7 @@ const PlaceSearchInput = ({ onPlaceSelect, register, error }) => {
         <input
           {...register("location")}
           placeholder="Type the location..."
-          className="block w-full border border-[#C8C8C8] px-4 py-2"
+          className="block w-full border border-[#C8C8C8] rounded-lg px-4 py-4"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               e.preventDefault();

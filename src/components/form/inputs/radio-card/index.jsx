@@ -1,14 +1,17 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-const RadioCard = ({ value, checked, onChange, title, description }) => {
+const RadioCard = ({ value, checked, onChange, title, description, row }) => {
+  const labelClassName = twMerge(
+    "cursor-pointer border p-4 rounded-lg w-full transition-colors duration-300",
+    checked ? "border-[#8354A3] bg-purple-50" : "border-[#C8C8C8]",
+    !row &&
+      "flex items-center font-normal text-base space-x-2 py-2 border-none bg-white p-0"
+  );
+
+
   return (
-    <label
-      className={twMerge(
-        "cursor-pointer border  p-4 w-full transition-colors duration-300",
-        checked ? "border-[#8354A3] bg-purple-50" : "border-[#C8C8C8]"
-      )}
-    >
+    <label className={labelClassName}>
       <input
         type="radio"
         value={value}
@@ -18,7 +21,7 @@ const RadioCard = ({ value, checked, onChange, title, description }) => {
       />
 
       {/* Title + Circle */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 ">
         {/* Radio circle */}
         <div className="relative flex items-center justify-center">
           <div
@@ -33,15 +36,18 @@ const RadioCard = ({ value, checked, onChange, title, description }) => {
           </div>
         </div>
 
-        {/* Title */}
-        <h4
-          className={twMerge(
-            "text-base",
-            checked ? "text-[#8354A3]" : "text-[#333333]"
-          )}
-        >
-          {title}
-        </h4>
+        {!row ? (
+          <h4 className={twMerge("text-base font-normal")}>{title}</h4>
+        ) : (
+          <h4
+            className={twMerge(
+              "text-base font-normal",
+              checked ? "text-[#8354A3]" : "text-black"
+            )}
+          >
+            {title}
+          </h4>
+        )}
       </div>
 
       {/* Description */}

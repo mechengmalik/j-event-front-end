@@ -13,8 +13,10 @@ const CommonDatePicker = ({
   id,
   minDate = new Date(),
   readOnly = false,
+  required = false,
   error,
 }) => {
+  console.log("🚀 ~ value:", value)
   const datePickerRef = useRef();
   const [selectedDate, setSelectedDate] = useState(null);
 
@@ -40,7 +42,7 @@ const CommonDatePicker = ({
           htmlFor={id}
           className="datePickerLabel block text-base text-left pb-2 pt-4"
         >
-          <span className="text-red-500">*</span> {label}
+          <span className="text-red-500">{`${required ?"*" :""}`}</span> {label}
         </label>
       )}
 
@@ -59,12 +61,10 @@ const CommonDatePicker = ({
         />
         {/* Calendar Icon */}
         <div className=" flex justify-center items-center absolute top-0 right-0 border-l border-black/10 h-full">
-                  <div
-                    className="items-center content-center p-4 items-center pointer-events-none"
-                  >
-                    <img src={calenderIcon} alt="time" />
-                  </div>
-                </div>
+          <div className="items-center content-center p-4 items-center pointer-events-none">
+            <img src={calenderIcon} alt="time" />
+          </div>
+        </div>
       </div>
 
       {error && <p className="dateFieldError text-red-500">{error}</p>}

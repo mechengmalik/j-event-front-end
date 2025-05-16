@@ -118,6 +118,7 @@ const events = [
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {filteredEvents.map((event) => (
         <EventCard
+        key={event.id}
         event={event}
         onManage={(id) => navigate(`/dashboard/events/${id}/edit`)}
         onOverview={(id) => navigate(`/dashboard/events/${id}`)}

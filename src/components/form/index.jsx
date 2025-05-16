@@ -22,10 +22,10 @@ const FormBuilder = ({
   setValue: formSetValue,
   defaultValues = {},
   setSelectedLocation,
-  selectedLocation
+  selectedLocation,
+  hight,
+  showButton = true,
 }) => {
-    
-
   // Create a dynamic schema based on form configuration
   const generateSchema = () => {
     const schemaObj = {};
@@ -462,8 +462,7 @@ const FormBuilder = ({
 
       case "custom-location":
         return (
-            <GoogleMapProvider key={field.id}>
-
+          <GoogleMapProvider key={field.id}>
             <LocationForm
               register={register}
               error={errors.location}
@@ -471,10 +470,9 @@ const FormBuilder = ({
               selectedLocation={selectedLocation}
               setValue={formSetValue} // for location lat and lng
               watch={watch}
-  
+              hight={hight}
             />
-            </GoogleMapProvider>
-
+          </GoogleMapProvider>
         );
 
       default:
@@ -504,23 +502,25 @@ const FormBuilder = ({
           return renderField(field);
         })}
       </div>
-      <div className="flex justify-between gap-6 pt-8">
-        {onCancel && (
+      {showButton && (
+        <div className="flex justify-between gap-6 pt-8">
+          {onCancel && (
+            <button
+              type="button"
+              onClick={onCancel}
+              className="border border-[#C8C8C8] w-1/2 px-6 py-2 bg-white hover:bg-gray-100"
+            >
+              {cancelButtonText}
+            </button>
+          )}
           <button
-            type="button"
-            onClick={onCancel}
-            className="border border-[#C8C8C8] w-1/2 px-6 py-2 bg-white hover:bg-gray-100"
+            type="submit"
+            className="bg-[#8354A3] text-white w-1/2 px-6 py-2"
           >
-            {cancelButtonText}
+            {submitButtonText}
           </button>
-        )}
-        <button
-          type="submit"
-          className="bg-[#8354A3] text-white w-1/2 px-6 py-2"
-        >
-          {submitButtonText}
-        </button>
-      </div>
+        </div>
+      )}
     </form>
   );
 };
